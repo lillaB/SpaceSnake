@@ -7,8 +7,8 @@ import util.*;
  * Floater class represents a generic floating object in space
  * having both gravity an velocity.
  * 
- * @author Model-team 
- * @version 1.0.0.0
+ * @author Victor, Joakim 
+ * @version 2016-03-04
  */
 public class Floater extends Moveable implements IGravity, Serializable{
 	

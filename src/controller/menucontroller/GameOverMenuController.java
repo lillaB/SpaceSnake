@@ -28,8 +28,5 @@ public class GameOverMenuController implements ActionListener {
 		if (e.getActionCommand() == GameEvent.BACK_TO_MENU) {
 			parent.exitMenu();
 		}
-		else {
-			System.out.println("StartupMenuController: Unknown button: " + e.paramString()); //debugging
-		}
 	}
 }

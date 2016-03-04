@@ -19,7 +19,7 @@ import util.Vector2D;
 import view.View;
 
 /**
- * Creates view and model, handles events from the keyboard and implements actions from subcontrollers
+ * Creates view and subcontrollers, handles events from the keyboard and implements actions from subcontrollers
  * 
  * @author Ingrid, Micaela
  * @version 2016-02-28

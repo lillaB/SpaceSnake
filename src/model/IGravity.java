@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Interface with methods representing generic gravitational functionality.
  * @author Victor
+ * @version 2016-03-04
  *
  */
 public interface IGravity {

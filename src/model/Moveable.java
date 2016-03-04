@@ -8,8 +8,8 @@ import util.*;
  * Moveable class represents a generic floating object in space with mass which 
  * also is collidable with other Moveable objets.
  * 
- * @author Model-team
- * @version 1.0.0.0
+ * @author Victor
+ * @version 2016-03-04
  */
 
 public class Moveable 

@@ -48,7 +48,7 @@ implements ActionListener, Observer
 	public void newGame () {
 		worldCollection = new WorldCollection();
 		worldCollection.addObserver(this);
-		worldCollection.setWorldSize(randomWorldSize());
+		worldCollection.setWorldSize(WorldFactory.randomWorldSize());
 		physicsEngine = new PhysicsEngine(worldCollection, 1, gameSpeed);
 		worldFactory = new WorldFactory(this, worldCollection);
 	}
@@ -102,14 +102,6 @@ implements ActionListener, Observer
 	}
 	
 	/**
-	 * Randomizes the size of the map
-	 * @return worldSize	Randomized double
-	 */
-	private double randomWorldSize() {
-		return (Math.random() * 10000) + 5000;
-	}
-	
-	/**
 	 * Adds an observer to the world
 	 * @param gameObserver	The observer that will be added
 	 */
@@ -125,16 +117,13 @@ implements ActionListener, Observer
 	public void actionPerformed(ActionEvent e_in) {
 		GameEvent e = (GameEvent) e_in;
 		if (e.getActionCommand() == GameEvent.MOUSE_PRESSED) {
-			//System.out.println("GameController: Mouse pressed: "+e.getVector());
 			physicsEngine.SnakePull(e.getVector().div(20));
 			//Maybe should set something in the physicsengine that released unsets?
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_RELEASED) {
-			//System.out.println("GameController: Mouse released: "+e.getVector());
 			physicsEngine.SnakePull(new Vector2D (0,0));
 		}
 		else if (e.getActionCommand() == GameEvent.MOUSE_DRAGGED) {
-			//System.out.println("GameController: Mouse dragged: "+e.getVector());
 			physicsEngine.SnakePull(e.getVector().div(20));
 		}
 	}

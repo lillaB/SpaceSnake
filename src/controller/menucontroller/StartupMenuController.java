@@ -34,8 +34,5 @@ public class StartupMenuController implements ActionListener {
 		else if (e.getActionCommand() == GameEvent.EXIT) {
 			parent.exit();
 		}
-		else {
-			System.out.println("StartupMenuController: Unknown button: " + e.paramString()); //debugging
-		}
 	}
 }
