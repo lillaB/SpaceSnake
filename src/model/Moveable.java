@@ -49,7 +49,6 @@ implements Serializable
 	 * Moves this object under given time and notify observers
 	 * 
 	 * @param dT - The time under which the object is moved
-	 * @return void
 	 */
 	public void move(double dT){
 		velocity = velocity.add(velocity_diff);	// V1 = V1 + A*dT
@@ -86,7 +85,6 @@ implements Serializable
 	 * Help method that checks for collision between this Moveable object and the list of all Worldobjects.
 	 * 
 	 * @param data - The list of WorldObjects
-	 * @return void
 	 */
 	public void collisions(ArrayList<WorldObject> data){
 		for(WorldObject obj : data){
@@ -115,7 +113,6 @@ implements Serializable
 	 * and the object it collides with and adds it to this objects velocity_diff.
 	 * 
 	 * @param obj - The object this object collides with. 
-	 * @return void
 	 */
 	protected void collision(WorldObject obj){
 		if (obj instanceof Moveable) 
@@ -148,7 +145,6 @@ implements Serializable
 	 * Calcuates the collisionvector with the bounderies of the world and adds it to this objects
 	 * velocity_diff.
 	 * 
-	 * @return void
 	 */
 	public void wallCollide(){
 		double r = theWorld.getWorldSize()/2-this.getRadius();

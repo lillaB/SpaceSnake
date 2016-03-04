@@ -59,7 +59,7 @@ implements Observer
     
     /**
      * Paints itself.
-     * @param g
+     * @param g_in
      */
     @Override
     public void paintComponent(Graphics g_in) {

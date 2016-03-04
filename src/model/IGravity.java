@@ -22,7 +22,7 @@ public interface IGravity {
 	 * 
 	 * @param data The list of WorldObjects.
 	 * @param dT The time under which force accelerates this object.
-	 * @return	void
+	 * 
 	 */
 	public void gravityPull(ArrayList<WorldObject> data, double dT);
 }

@@ -8,7 +8,7 @@ import util.*;
  * WorldObject class represents any object contained within the WorldCollection class.
  * 
  * @author Victor, Joakim
- * @version 1.0.0.0
+ * @version 2016-03-04
  */
 public abstract class WorldObject 
 extends Observable 
@@ -83,7 +83,6 @@ implements Serializable
 	/**
 	 * Sets this object as changed and notify it's observers with the new position.
 	 * 
-	 * @return void
 	 */
 	public void update(){
 		setChanged();
@@ -94,7 +93,6 @@ implements Serializable
 	/**
 	 * Sets this object as changed and notify it's observers with the dead message.
 	 * 
-	 * @return void
 	 */
 	public void kill(){
 		theWorld.delete(this);

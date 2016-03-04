@@ -503,7 +503,6 @@ implements
 	
 	/**
 	 * Scales a vector with a scalar
-	 * @return			The new vector
 	 */
 	public void scaleself(double scalar) {
 		this.x *= scalar;
@@ -625,7 +624,8 @@ implements
 	
 	/**
 	 * Calculates the squared distance between two vectors.
-	 * @param vector
+	 * @param first	The first vector.
+	 * @param second	The second vector.
 	 * @return
 	 */
 	public static double distancesquared(Vector2D first, Vector2D second){

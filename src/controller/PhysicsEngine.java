@@ -29,9 +29,9 @@ public class PhysicsEngine extends Thread
     
     /**
      * Constructor that sets the in-game physics
-     * @param	data		ArrayList of World Objects
-     * 			dT			Length of time step
-     * 			gameSpeed	Speed of game iteration
+     * @param	world		The WorldCollection
+     * @param	dT			Length of time step
+     * @param	gameSpeed	Speed of game iteration
      */
     public PhysicsEngine(WorldCollection world, double dT, double gameSpeed){
     	this.gameSpeed = gameSpeed;

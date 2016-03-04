@@ -10,7 +10,7 @@ import model.objects.SnakeHead;
  * list of of WorldObjects
  * 
  * @author Victor
- * @version 1.0.0.0
+ * @version 2016-03-04
  */
 public class WorldCollection 
 extends Observable
@@ -47,7 +47,6 @@ implements Serializable
 	 * Sets the worldsize to a certain value.
 	 * 
 	 * @param worldSize - The worldsize.
-	 * @return void
 	 */
 	public void setWorldSize(double worldSize) {
 		this.worldSize = worldSize;
@@ -69,7 +68,6 @@ implements Serializable
 	 * Adds a given WorldObject to the WorldCollection.
 	 * 
 	 * @param obj - The WorldObject to be added.
-	 * @return void
 	 */
 	public void add(WorldObject obj){
 		data.add(obj);
@@ -80,7 +78,6 @@ implements Serializable
 	 * Removes an object from the WorldCollection
 	 * 
 	 * @param obj The object to be removed.
-	 * @return void
 	 */
 	public void remove(WorldObject obj) {
 		data.remove(obj);
@@ -91,7 +88,6 @@ implements Serializable
 	 * Deletes given object
 	 * 
 	 * @param obj WorldObject to be removed
-	 * @return void
 	 */
 	public void delete(WorldObject obj){ 
 		if (obj instanceof SnakeHead) {
@@ -106,7 +102,6 @@ implements Serializable
 	/**
 	 * Update the Observs that the WorldCollection has been changed.
 	 * @param obj - That has been changed somehow.
-	 * @return void
 	 */
 	public void update(WorldObject obj){
 		setChanged();
@@ -115,7 +110,6 @@ implements Serializable
 	
 	/**
 	 * Update the observers that the game is over
-	 * @return void
 	 */
 	public void gameover() {
 		setChanged();
@@ -124,7 +118,6 @@ implements Serializable
 	
 	/**
 	 * Update the observers of a new Edible.
-	 * @return void
 	 */
 	public void newEdible() {
 		setChanged();

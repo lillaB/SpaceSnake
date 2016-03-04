@@ -35,11 +35,11 @@ implements Observer
 	
 	/**
 	 * Constructor that takes a position (x,y) and a size and generates a GameFigure.
-	 * 
-	 * @param x		The x-position
-	 * @param y		The y-position
-	 * @param size	The size of the GameFigure
+	 *
 	 * @param parent	The containing GameView
+	 * @param position	The position vector.
+	 * @param size		The size of the GameFigure.S
+	 * @param color		The color.
 	 */
     public MapFigure(MapView parent, Vector2D position, double size, Color color)
     {

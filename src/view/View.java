@@ -47,7 +47,7 @@ public class View
 	
 	/**
 	 * Add an ActionListener to the view
-	 * @param the ActionListener
+	 * @param AL ActionListener
 	 */
 	public void addActionListener(ActionListener AL) {
 		mainWindow.addActionListener(AL);
@@ -150,7 +150,6 @@ public class View
 	
 	/**
 	 * Shows a Map in which everything happens.
-	 * @param AL	The ActionListener to which the game sends its actions
 	 */
 	public GameObserver showMap()
 	{
