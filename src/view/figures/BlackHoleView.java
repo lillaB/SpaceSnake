@@ -10,17 +10,30 @@ import java.awt.geom.Point2D;
 
 import view.GameView;
 
+/**
+ * Class responsible for painting the Black Holes.
+ * @author Gustav
+ * @version 2016-03-04
+ */
+
 @SuppressWarnings("serial")
 public class BlackHoleView 
 extends GameFigure {
 
+	/**
+	 * Constructor that creates the figure.
+	 * @param x			The initial x-coordinate
+	 * @param y			The initial y-coordinate
+	 * @param size		The initial size (the diameter)
+	 * @param parent	The containing GameView in which it is located
+	 */
 	public BlackHoleView(double x, double y, double size, GameView parent){
 		super(x, y, size, parent);
 	}
 
     /**
      * Paints itself.
-     * @param g_in
+     * @param g_in		The graphics that is used
      */
     @Override
     public void paintComponent(Graphics g_in) {

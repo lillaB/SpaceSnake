@@ -59,7 +59,7 @@ implements Observer
     
     /**
      * Paints itself.
-     * @param g_in
+     * @param g_in		The graphics that is used
      */
     @Override
     public void paintComponent(Graphics g_in) {
@@ -76,8 +76,7 @@ implements Observer
         String text="?";
         g.setFont(g.getFont().deriveFont((float)(size*0.75)));
         Rectangle2D r = g.getFont().getStringBounds(text, g.getFontRenderContext());
-        g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));
-        
+        g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));    
     }
     
     
@@ -101,17 +100,12 @@ implements Observer
 				//Die!
 				parent.removeMe(this);
 		}
-				
-		//System.out.println("Update i GameView: "+what);
-		// if (moved) move(new_x, new_y);
-		// if (died) parent.removeItem(this);
-		// if (resized) resize(new_size);
 	}
 	
 	
 	/**
 	 * Moves the figure to a new position
-	 * @param position
+	 * @param position	the new position
 	 */
 	private void setPosition (Vector2D position) {
 		this.x = position.getX();

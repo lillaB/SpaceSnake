@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.1.1">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>15</y>
+      <w>175</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::model
+_IGravity_
+--
+
+--
++getGravity(): double
++gravityPull(data: ArrayList&lt;WorldObject&gt;, dt: double)
+--
+Responsibilities
+-- Interface with methods representing generic 
+   gravitational functionality.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>395</x>
+      <y>0</y>
+      <w>175</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract Class&gt;&gt;
+Package:: model
+_WorldObject_
+{extends Observable, implements Serializable}
+--
+-serialVersionUID: long
+#position: Vector2D
+#radius: double
+#mass: double
+#theWorld: WorldCollection
+--
++WorldObject(world: WorldObject, position: Vector2D,
+  mass: double, radius: double)
++getMass(): double
++getPosition(): Vector2D
++getRadius(): double
++getDiameter(): double
++update(): void
++kill(): void
+--
+Responsibilities
+-- WorldObject class represents any object contained 
+   within the WorldCollection class.
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>395</x>
+      <y>230</y>
+      <w>180</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Object&gt;&gt;
+Package:: model
+_Moveable_
+--
+#velocity: Vector2D
+#velocity_diff: Vector2D
+-collision_damping: double
+--
++Moveable(world: WorldCollection, velocity: Vector2D,
+  position: Vector2D, mass: double, radius: double)
++move(dT: double)
++accelerate(force: Vector2D, dT: double): void
++getVelocity(): Vector2D 
++collisions(data: ArrayList&lt;WorldObject&gt;): void
+#collides(other: WorldObject): boolean
+#collision(obj WorldObject): void
++wallCollide(): void
+--
+Responsibilities
+-- Moveable class represents a generic floating object in 
+   space with mass which also is collidable with other 
+   Moveable objets.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>395</x>
+      <y>465</y>
+      <w>180</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Object&gt;&gt;
+Package::model
+_Floater_
+--
+-gravity: double
+--
++Floater(world: WorldCollection, velocity Vector2D,
+  position: Vector2D, mass: double, radius: double )
++gravityPull(data: ArrayList&lt;WorldObject&gt;, dT: double)
++calcuateGravity(arg: WorldObject)
++getGravity(): double
+--
+Responsibilities
+-- Floater class represents a generic floating object 
+   in space having both gravity an velocity.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>345</y>
+      <w>180</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Object&gt;&gt;
+Package::model
+{extends Observable, implements Serializable}
+_WorldCollection_
+--
+-serialVersionUID: long
+-data: ArrayList&lt;WorldObject&gt;
+-worldSize: int
+--
++getCollection(): ArrayList&lt;WorldObject&gt;
++setWorldSize(worldSize: int): void
++getWorldSize(): int
++add(obj: WorldObject): void
++remove(obj: WorldObject): void
++delete(obj: WorldObject): void
++surronding(obj: WorldObject): ArrayList&lt;WorldObject&gt;
++update(obj: WorldObject): void
++gameover(): void
+--
+Responsibilities
+-- WorldCollection stores the WorldObjects and has 
+   appropriate methods to manage thelist of of 
+   WorldObjects.
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>485</x>
+      <y>390</y>
+      <w>15</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>485</x>
+      <y>175</y>
+      <w>15</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>645</x>
+      <y>430</y>
+      <w>65</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>515</y>
+      <w>90</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>315</y>
+      <w>90</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0;160.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>565</x>
+      <y>95</y>
+      <w>95</w>
+      <h>235</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0;170.0;450.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>75</x>
+      <y>230</y>
+      <w>180</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Object&gt;&gt;
+Package::model.objects
+{Implements Serializable}
+_BlackHole_
+--
+-serialVersionUID: long
+-gravity: double
+--
++BlackHole(world: WorldCollection, position: Vector2D,
+mass: double, radius: double)
+--
+Responsibilities
+-- An non movable object with gravity.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>165</x>
+      <y>175</y>
+      <w>325</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>630.0;10.0;630.0;70.0;10.0;70.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>95</y>
+      <w>210</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;680.0;400.0;680.0;400.0;740.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>95</y>
+      <w>130</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>240.0;10.0;240.0;110.0;10.0;110.0;10.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>395</x>
+      <y>630</y>
+      <w>185</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+Package::model.objects
+{implements Serializable}
+_SnakeHead_
+--
+-serialVersionUID: long
+-new_Tail_radius: double
+-new_Tail_mass: double
+--
++SnakeHead(world: WorldCollection, velocity: Vector2D,
+position: Vector2D, mass: double, radius: double)
+-die(): void
+-eat(what: Edible): void
+--
+Responsibilities
+-- An moveable object that represents the snakehead.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>395</x>
+      <y>795</y>
+      <w>170</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+Package::model.objects
+{implements Serializable}
+_SnakeTail_
+--
+-serialVersionUID: long
+--
+SnakeTail(world: WorldColletion, velocity: Vector2D,
+position: Vector2D,mass: double, radius: double)
+-die(): void
+--
+Responsibilities
+-- An moveable object that represents a snaketail.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>75</x>
+      <y>475</y>
+      <w>175</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+Package::model.objects
+{implements Serializable}
+_SnakePart_
+--
+-serialVersionUID: long
+#nextPart: SnakePart
+-stiffness: double
+-linkLength: double
+-damping: double
+--
++SnakePart(world: WorldCollection, velocity: Vector2D
+position: Vector2D, mass: double, radius: double)
++PullAtNext(dT: double): void
++addTail(tail: SnakePart):boolean
++removeTail(): void
++getTail(): SnakePart
+#isNeighbot(obj WorldObject): boolean
+
+--
+Responsibilities
+-- An object that can have another object of this type.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>335</y>
+      <w>340</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>660.0;120.0;660.0;160.0;450.0;160.0;450.0;10.0;10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>155</x>
+      <y>645</y>
+      <w>335</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;270.0;650.0;270.0;650.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>610</y>
+      <w>335</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;160.0;320.0;160.0;320.0;10.0;650.0;10.0;650.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>565</x>
+      <y>85</y>
+      <w>235</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;450.0;10.0;450.0;520.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>575</x>
+      <y>515</y>
+      <w>85</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1</panel_attributes>
+    <additional_attributes>10.0;350.0;150.0;350.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>680</y>
+      <w>100</w>
+      <h>205</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;380.0;180.0;380.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>565</x>
+      <y>75</y>
+      <w>245</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>470.0;540.0;470.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>0</x>
+      <y>105</y>
+      <w>405</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>790.0;10.0;10.0;10.0;10.0;710.0;320.0;710.0;320.0;740.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>175</y>
+      <w>15</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>165</x>
+      <y>390</y>
+      <w>315</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>610.0;10.0;610.0;120.0;170.0;120.0;170.0;140.0;10.0;140.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>45</x>
+      <y>630</y>
+      <w>105</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..1
+&lt; can have</panel_attributes>
+    <additional_attributes>190.0;40.0;190.0;110.0;10.0;110.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>835</x>
+      <y>50</y>
+      <w>125</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+Package::util
+{Some Properties}
+_Vector2D_
+--
+-variables
+--
+-methods
+--
+Responsibilities
+-- Class for all 2d-vector calculations. 
+   This class is non-modifying.
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>565</x>
+      <y>65</y>
+      <w>280</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;540.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>75</x>
+      <y>355</y>
+      <w>160</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Class&gt;&gt;
+Package::model.objects
+{implements Serializable}
+_Edible_
+--
+-serialVersionUID: long
+--
++Edible(world: WorldCollection, velocity: Vector2D,
+position: Vector2D, mass: double, radius: double)
+--
+Responsibilities
+-- An object that dies if it hits a black 
+   hole.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>175</y>
+      <w>110</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>20.0;10.0;20.0;70.0;200.0;70.0;200.0;480.0;10.0;480.0;10.0;580.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>230</x>
+      <y>395</y>
+      <w>275</w>
+      <h>245</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;410.0;530.0;410.0;530.0;470.0</additional_attributes>
+  </element>
+</diagram>

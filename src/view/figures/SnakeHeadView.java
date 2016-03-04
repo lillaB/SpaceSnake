@@ -12,17 +12,30 @@ import java.util.Observable;
 import util.Vector2D;
 import view.GameView;
 
+/**
+ * Class responsible for painting the Snake head.
+ * @author Gustav
+ * @version 2016-03-04
+ */
+
 @SuppressWarnings("serial")
 public class SnakeHeadView 
 extends GameFigure {
 
+	/**
+	 * Constructor that creates the figure.
+	 * @param x			The initial x-coordinate
+	 * @param y			The initial y-coordinate
+	 * @param size		The initial size (the diameter)
+	 * @param parent	The containing GameView in which it is located
+	 */
 	public SnakeHeadView(double x, double y, double size, GameView parent){
 		super(x, y, size, parent);
 	}
 
-    /**
+	/**
      * Paints itself.
-     * @param g_in
+     * @param g_in		The graphics that is used
      */
     @Override
     public void paintComponent(Graphics g_in) {
@@ -35,19 +48,18 @@ extends GameFigure {
     						RenderingHints.VALUE_ANTIALIAS_ON);
     	
        	Point2D center = new Point2D.Double(centerx, centery);
-        Point2D focus = center;//new Point2D.Float(40, 40);
+        Point2D focus = center;
         float[] dist = {0.0f, 0.8f, 1.0f};
         Color[] colors = {new Color(255,235,200), new Color(255,55,0,255), new Color(255,55,0,255)};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) radius, focus, dist, colors, CycleMethod.NO_CYCLE);
         g.setPaint(rgrad);
         g.fillOval(0, 0, (int)size, (int)size);
-        
     }
 
     /**
      * Used when "the model" sends notifyObservers(arg1). Needs to override so that the center of screen follows the head
      */
-	@Override //Movement (or something)
+	@Override
 	public void update(Observable who, Object what) {
 		((GameView) parent).updateSnakePosition((Vector2D)what);
 		super.update(who, what);
