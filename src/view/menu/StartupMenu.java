@@ -11,7 +11,7 @@ import view.GameComponent;
 
 
 /**
- * This is a class that just contains the startup menu
+ * This is a class that contains the startup menu
  * 
  * @author Gustav
  * @version 2016-02-05

@@ -9,12 +9,12 @@ import javax.swing.SwingUtilities;
 import util.Vector2D;
 
 /**
- * The main class for figures in the game view. Should be subclassed for all different kinds of figures.
- * Is an observer for events like a new figure added.
- * Is an ActionListener to be able to listen to itself.
+ * The class for figures in the game view.
+ * This is an observer for events like a new figure added.
+ * Is also an ActionListener to be able to listen to itself.
  *  
  * @author Gustav
- * @version 2016-02-05
+ * @version 2016-03-04
  */
 
 public class MapFigure 
@@ -23,14 +23,13 @@ implements Observer
 
 	protected double size;
 	protected Vector2D position;
-
-	protected Color color = new Color(255,0,0);;
+	protected Color color = new Color(255,0,0);
 	
 	//Extra buffer when determining bounds
-	int extra=1;
+	protected int extra=1;
 	
 	//Needed to repaint the containing panel and to delete itself
-	MapView parent;
+	protected MapView parent;
 	
 	
 	/**
@@ -60,17 +59,23 @@ implements Observer
     
     /**
      * Returns the color of itself to be used in the map.
+     * @return		the current color
      */
     public Color getColor() {
     	return color;
     }
+    
+    /**
+     * Sets the color of itself to be used in the map.
+     * @param c		the new color
+     */
     public void setColor(Color c) {
     	color = c;
     }
     
     /**
      * Paints itself.
-     * @param g
+     * @param g		the graphics object that is used
      */
     public void paintComponent(Graphics g) {
     	g.setColor(color);
@@ -79,17 +84,17 @@ implements Observer
     
     
     /**
-     * Used when "the model" sends notifyObservers(arg1).
+     * Used when an update has happened. Can handle new positions and if the object died.
+     * @param who		The observable that was updated
+     * @param what		What that was updated, either a Vector2D if it is a new position or a String containing "Died" if it died.
      */
 	@Override //Movement (or something)
 	public void update(Observable who, Object what) {
 		
-		// if (moved) move(new_x, new_y);
 		if (what instanceof Vector2D) {
 			position = (Vector2D) what;
 		}
 		
-		// if (died) parent.removeItem(this);
 		if (what instanceof String) {
 			if (((String)what).equals("Died"))
 			{
@@ -99,21 +104,29 @@ implements Observer
 				});
 			}
 		}
-		
-		// if (resized) resize(new_size);
 	}
 	
 	
 	/**
 	 * Moves the figure to a new position
-	 * @param position
+	 * @param position	The new position
 	 */
 	private void setPosition (Vector2D position) {
 		this.position = position;
 	}
+	
+	/**
+	 * Returns the x-coordinate
+	 * @return the x-coordinate
+	 */
 	public double positionX() {
 		return position.getX();
 	}
+	
+	/**
+	 * Returns the y-coordinate
+	 * @return the y-coordinate
+	 */
 	public double positionY() {
 		return position.getY();
 	}

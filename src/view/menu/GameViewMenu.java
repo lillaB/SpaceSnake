@@ -60,13 +60,7 @@ extends GameComponent
 		menuPanel.addButton("-", GameEvent.ZOOM_OUT, bg_color, border_color, highlight_color); //"−" eller "\u2212"
 		
 		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		this.add(menuPanel);//, BorderLayout.NORTH);
-		
-		/*this.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.NORTHWEST;
-		this.add(menuPanel, gbc);
-		*/
+		this.add(menuPanel);
 		
 		this.setOpaque(false);
 		this.setVisible(true);

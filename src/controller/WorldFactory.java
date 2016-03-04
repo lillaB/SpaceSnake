@@ -138,8 +138,6 @@ public class WorldFactory {
 			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
 			spawns.put("BlackHole",blackHole);
-			System.out.println("total objects="+worldSize);
-			System.out.println("total objects="+totalObjects);
 		
 		return spawns;
 	}

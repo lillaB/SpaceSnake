@@ -10,7 +10,7 @@ import view.GameComponent;
 
 
 /**
- * This is a class that just contains the startup menu
+ * This is a class that just contains the ingame menu with a zoom in and a zoom out button.
  * 
  * @author Gustav
  * @version 2016-02-05

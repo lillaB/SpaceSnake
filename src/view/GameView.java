@@ -100,6 +100,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	/**
 	 * This draws the world.
+	 * @param g		The graphics object that is used
 	 */
 	@Override
     public void paintComponent(final Graphics g) {
@@ -119,7 +120,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
     	        RenderingHints.VALUE_ANTIALIAS_ON);
     	g2.setColor(Color.BLACK);
         g2.drawOval(-worldSize/2-1, -worldSize/2-1, worldSize+2, worldSize+2);
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
         g2.fillOval(-worldSize/2, -worldSize/2, worldSize, worldSize);  
     }
 	
@@ -135,47 +136,52 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 		return zoom;
 	}
 	
-	
-	@Override //Zoom in or out
+	/** Zooms based on the scroll */
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		zoom(e.getUnitsToScroll());
 	}
 	
-	@Override //Accelerate a bit?
-	public void mouseClicked(MouseEvent arg0) {	
-		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse clicked", Timestamp.now(), 0));
-	}
+	/** Do nothing */
+	@Override public void mouseClicked(MouseEvent arg0) {}
+	/** Do nothing */
+	@Override public void mouseEntered(MouseEvent arg0) {}
+	/** Do nothing */
+	@Override public void mouseExited(MouseEvent arg0) {}
 	
-	@Override //For keeping track?
-	public void mouseEntered(MouseEvent arg0) {
-		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse inside game area", Timestamp.now(), 0));
-	}
-	
-	@Override //Stop accelerating?
-	public void mouseExited(MouseEvent arg0) {
-		//fireEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Mouse out of game area", Timestamp.now(), 0));
-	}
-	
-	@Override //Start accelerating
+	/**
+	 * Starts accelerating the snake.
+	 * @param arg0	The MouseEvent that happened, used to get coordinates
+	 */
+	@Override 
 	public void mousePressed(MouseEvent arg0) {
 		fireEvent(new GameEvent(this, GameEvent.MOUSE_PRESSED, relativePosition(arg0.getPoint())));
 	}
 	
-	@Override //Stop accelerating
+	/**
+	 * Stops accelerating the snake.
+	 * @param arg0	The MouseEvent that happened, used to get coordinates
+	 */
+	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		fireEvent(new GameEvent(this, GameEvent.MOUSE_RELEASED, relativePosition(arg0.getPoint())));
 	}
 	
+	/**
+	 * Changes the direction of where the snake accelerates towards
+	 * @param arg0	The MouseEvent that happened, used to get coordinates
+	 */
 	@Override //Change acceleration direction
 	public void mouseDragged(MouseEvent arg0) {
 		fireEvent(new GameEvent(this, GameEvent.MOUSE_DRAGGED, relativePosition(arg0.getPoint())));
 	}
 	
-	@Override //Should do nothing
-	public void mouseMoved(MouseEvent arg0) {}
+	/** Do nothing. */
+	@Override public void mouseMoved(MouseEvent arg0) {}
 	
 	/**
-	 * Calculate a relative position on the screen compared to the snake
+	 * Calculate a relative position on the screen compared to the snake (center of screen). Uses the current zoom.
+	 * @param point The point that is compared to the center
 	 */
 	private Vector2D relativePosition(Point point) {
 		return (new Vector2D(point)).sub(new Vector2D(this.getWidth()/2,this.getHeight()/2)).div(zoom);
@@ -183,6 +189,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	/**
 	 * Adds a new world to the view including all objects and all constants.
+	 * @param world The WorldCollection from which all objects and constants is taken
 	 */
 	public void addWorld (WorldCollection world) {
 		for (WorldObject thing : world.getCollection()) {
@@ -193,7 +200,9 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	
 	/**
-	 * When something is added to the world it gets sent here
+	 * Update function run by the observable (through notifyobservers).
+	 * @param who	the observable that was updated
+	 * @param what	what was updated. If it is an WorldObject that object is added to the view
 	 */
 	@Override //Something happened in the world!!!
 	public void update(Observable who, Object what) {
@@ -232,7 +241,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	/**
 	 * Adds a GameFigure too this so it gets painted.
-	 * @param figure
+	 * @param figure the GameFigure that is added
 	 */
 	private void addFigure (GameFigure figure) {
 		this.add(figure);
@@ -249,6 +258,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 	
 	/**
 	 * Used for the snake to update where it is.
+	 * @param position	The snake position
 	 */
 	public void updateSnakePosition(Vector2D position) {
 		this.snakePosition = position;
@@ -257,7 +267,7 @@ implements MouseWheelListener, MouseMotionListener, MouseListener, GameObserver,
 
 	/**
 	 * For commands sent from the game view menu
-	 * @param e
+	 * @param e	The ActionEvent that happened
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

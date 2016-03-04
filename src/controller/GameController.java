@@ -141,7 +141,7 @@ implements ActionListener, Observer
 		{	
 			if (((String)arg1).equals("GAMEOVER")) {
 				parent.setGameOver();
-				pausePhysics(); //Bad!
+				pausePhysics(); 
 			} else if (((String)arg1).equals("NEWEDIBLE")) {
 				newEdible();
 			}

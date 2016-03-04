@@ -39,7 +39,7 @@ import view.GameObserver;
  * is observer at the model on updates there (new objects?)
  * 
  * @author Gustav
- * @version 2016-02-05
+ * @version 2016-03-04
  */
 
 
@@ -49,13 +49,14 @@ extends GameComponent
 implements MouseListener, GameObserver, ActionListener
 {
 
-	//Temp variable until the proper world gets used
+	//The world size
 	int worldSize=800;
 	
 	// Determines the zoom level
 	protected float mapSize = 1;
 	private int margin = 5;
 	
+	//All figures in the map
 	private ArrayList<MapFigure> theList = new ArrayList<MapFigure>();
 	
 	//Update itself every now and then
@@ -76,11 +77,6 @@ implements MouseListener, GameObserver, ActionListener
 		this.build();
 		this.addMouseListener(this);
 		
-		bg_color1 = Parser.ColorFromString(Config.get("Map_bg_color1"));
-		bg_color2 = Parser.ColorFromString(Config.get("Map_bg_color2"));
-		bg_color3 = Parser.ColorFromString(Config.get("Map_bg_color3"));
-		border_color = Parser.ColorFromString(Config.get("Map_border_color"));
-		
 		t = new Timer(500,this); //Only needed if nothing is repainted in the gameview.
 		t.setActionCommand("Repaint");
         t.start();
@@ -95,11 +91,16 @@ implements MouseListener, GameObserver, ActionListener
 		//Use coordinates for positioning
 		this.setLayout(null);
 		mapSize = Integer.parseInt(Config.get("Map_size"));
+		bg_color1 = Parser.ColorFromString(Config.get("Map_bg_color1"));
+		bg_color2 = Parser.ColorFromString(Config.get("Map_bg_color2"));
+		bg_color3 = Parser.ColorFromString(Config.get("Map_bg_color3"));
+		border_color = Parser.ColorFromString(Config.get("Map_border_color"));
 	}
 
 	
 	/**
 	 * This draws the map.
+	 * @param g		The graphics object that is used
 	 */
 	@Override
     public void paintComponent(final Graphics g) {
@@ -119,7 +120,7 @@ implements MouseListener, GameObserver, ActionListener
         g2.setStroke(new BasicStroke(2*worldSize/mapSize));
         
         Point2D center = new Point2D.Double(0, 0);
-        Point2D focus = center;//new Point2D.Float(40, 40);
+        Point2D focus = center;
         float[] dist = {0.0f, 0.9f, 1.0f};
         Color[] colors = {bg_color1, bg_color2, bg_color3};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) worldSize/2, focus, dist, colors, CycleMethod.NO_CYCLE);
@@ -141,16 +142,25 @@ implements MouseListener, GameObserver, ActionListener
     }
 	
 	
-	//Do nothing on any MouseEvents
+	///////////////////////////////////
+	// Do nothing on any MouseEvents //
+	///////////////////////////////////
+	/** Do nothing */
 	@Override public void mouseClicked(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseEntered(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseExited(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mousePressed(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseReleased(MouseEvent arg0) {}
 	
 	
 	/**
-	 * Needed for the rounded corners.
+	 * Needs to override for the rounded corners. Checks if som x and y coordinates are within it
+	 * @param x		The x-coordinate (pixels)
+	 * @param y		The y-coordinate (pixels)
 	 */
 	@Override
 	public boolean contains (int x, int y) {
@@ -162,8 +172,10 @@ implements MouseListener, GameObserver, ActionListener
 	
 	/**
 	 * Update function run by the observable (through notifyobservers).
+	 * @param who	the observable that was updated
+	 * @param what	what was updated. If it is an WorldObject that object is added to the view
 	 */
-	@Override //Something happened in the world!!!
+	@Override
 	public void update(Observable who, Object what) {
 		if (what instanceof WorldObject) {
 			addItem((WorldObject) what);
@@ -173,6 +185,7 @@ implements MouseListener, GameObserver, ActionListener
 	
 	/**
 	 * Adds a complete world to the view (including all objects and constants).
+	 * @param world		The WorldCollection from which all items and constants is added to the view.
 	 */
 	public void addWorld (WorldCollection world) {
 		for (WorldObject thing : world.getCollection()) {
@@ -227,7 +240,7 @@ implements MouseListener, GameObserver, ActionListener
 
 	/**
 	 * For commands sent from the game view menu
-	 * @param e
+	 * @param e		the ActionEvent that happened
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

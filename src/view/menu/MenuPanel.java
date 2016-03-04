@@ -22,6 +22,12 @@ import javax.swing.border.EmptyBorder;
 import util.Config;
 import view.GameComponent;
 
+/**
+ * A class that generates a panel with some (optional) text and buttons.
+ * @author Gustav
+ * @version 2016-03-04
+ */
+
 @SuppressWarnings("serial")
 public class MenuPanel 
 extends JPanel 
@@ -35,6 +41,7 @@ implements MouseListener, ActionListener
 	
 	JPanel titlePanel, buttonPanel;
 	JLabel titleLabel;
+	
 	/**
 	 * Constructor
 	 * @param parent	The gameComponent that will send fireEvent on events.
@@ -107,17 +114,33 @@ implements MouseListener, ActionListener
 		buttonPanel.add(button);
 	}
 	
+	/**
+	 * Sets the background color
+	 * @param c		The new background color
+	 */
 	public void setBackground(Color c) {
 		bg_color=c;
 	}
+
+	/**
+	 * Sets the border ground color
+	 * @param c		The new border ground color
+	 */
 	public void setBorderColor(Color c) {
 		border_color=c;
 	}
+	
+	/**
+	 * Sets the preferred width of the buttons
+	 * @param width		The preferred width
+	 */
 	public void setWidth(int width) {
 		buttonPanel.setMaximumSize(new Dimension(width,100));
 	}
+	
 	/**
 	 * Paints the menu (the background of it).
+	 * @param g_in The graphics object that is used.
 	 */
 	@Override
 	public void paintComponent(Graphics g_in) {
@@ -135,13 +158,13 @@ implements MouseListener, ActionListener
 		g.drawRoundRect(0, 0, width-1, height-1, corner_r, corner_r);
 	}
 	
-	/**
-	 * Do not paint any borders.
-	 */
+	/** Do not paint any borders. */
 	@Override public void paintBorder(Graphics g) {}
 	
 	/**
-	 * Needed for the rounded corners.
+	 * Needed for the rounded corners. Checks if some coordinate is withinit.
+	 * @param x		the x-coordinate
+	 * @param y		the y-coordinate
 	 */
 	@Override
 	public boolean contains (int x, int y) {
@@ -150,13 +173,24 @@ implements MouseListener, ActionListener
 		return (new RoundRectangle2D.Double(0, 0, width-1, height-1, corner_r, corner_r)).contains(x, y);
 	}
 
-	//Mouse actions: Do nothing.
+	////////////////////////////////
+	// Mouse actions: Do nothing. //
+	////////////////////////////////
+	/** Do nothing */
 	@Override public void mouseClicked(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseEntered(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseExited(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mousePressed(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseReleased(MouseEvent arg0) {}
 
+	/**
+	 * When some action has happened it should be sent to the listeners of the panel.
+	 * @param e		The ActionEvent that happened
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		parent.fireEvent(e);

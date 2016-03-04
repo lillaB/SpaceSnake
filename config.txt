@@ -48,7 +48,7 @@ Gamemenu_button_highlight    = 200,50,50,255
 Map_bg_color3     = 180,180,180,255
 Map_bg_color2     = 200,200,200,200
 Map_bg_color1     = 255,255,255,255
-Map_border_color = 0,0,0,200
+Map_border_color  = 0,0,0,200
 
 Snake_link_stiffness = 1
 Snake_link_damping   = 0.99
@@ -65,5 +65,5 @@ floater_size = 100
 floater_mass = 100
 
 Collision_damping = 0.95
-Gravity_constant = 50
+Gravity_constant = 1000
 Max_speed = 50
