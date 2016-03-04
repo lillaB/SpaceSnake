@@ -143,6 +143,9 @@ implements ActionListener, Observer
 		physicsEngine.SnakePull(acc);
 	}
 
+	/**
+	 * Override Observer function.
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) { //TODO: Ändra variabelnamn...
 		if(arg1 instanceof String)
@@ -157,9 +160,12 @@ implements ActionListener, Observer
 		}
 	}
 	
+	/**
+	 * Creates anew edible somewhere.
+	 */
 	private void newEdible() {
 		Vector2D pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
-		while ( pos.lengthsquared() > worldCollection.getWorldSize()*worldCollection.getWorldSize() )
+		while ( pos.lengthsquared()*4 > worldCollection.getWorldSize()*worldCollection.getWorldSize() )
 			pos = new Vector2D(Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2, Math.random() * worldCollection.getWorldSize() - worldCollection.getWorldSize()/2);
 		double speedMultiplier = 30;
 		Vector2D speed = new Vector2D((Math.random() * speedMultiplier) - speedMultiplier/2, (Math.random() * speedMultiplier) - speedMultiplier/2);

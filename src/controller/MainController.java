@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import model.WorldCollection;
 
@@ -81,7 +83,14 @@ public class MainController implements ActionListener {
 		view.hideStartupMenu();			
 		gameController.addObserver(view.showNewGame(gameController));
 		gameController.addObserver(view.showNewMap());
-		gameController.runPhysics();
+		
+		final Timer timer = new Timer();
+	    timer.schedule(new TimerTask() {
+	        public void run() {
+	        	gameController.runPhysics();
+	            timer.cancel();
+	        }}, 100);
+		
 		state = GAME_VIEW;
 	}
 		
@@ -108,7 +117,14 @@ public class MainController implements ActionListener {
 				view.hideStartupMenu();			
 				gameController.addObserver(view.showNewGame(gameController));
 				gameController.addObserver(view.showNewMap());
-				gameController.runPhysics();
+				
+				final Timer timer = new Timer();
+			    timer.schedule(new TimerTask() {
+			        public void run() {
+			        	gameController.runPhysics();
+			            timer.cancel();
+			        }}, 100);
+				
 				state = GAME_VIEW;
 			} catch (Exception ex) {
 				view.messageDialog("Error while loading file.");

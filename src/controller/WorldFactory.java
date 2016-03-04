@@ -13,6 +13,7 @@ import model.objects.BlackHole;
 import model.objects.Edible;
 import model.objects.SnakeHead;
 import model.objects.SnakeTail;
+import util.Config;
 import util.Vector2D;
 
 /**
@@ -92,38 +93,53 @@ public class WorldFactory {
 	public Map<String,Integer> randomSpawns() {		
 		Map<String,Integer> spawns = new HashMap<String,Integer>();
 		Random random = new Random();
-		Double WorldSize = worldCollection.getWorldSize();
+		Double worldSize = worldCollection.getWorldSize();
 		
 		int totalObjects = random.nextInt(MAX_SPAWN)+ MIN_SPAWN;
 		int floater = ZERO;
 		int edible = ZERO;
 		int blackHole = ZERO;
 		
-		if(WorldSize.intValue() <= 5000 || WorldSize.intValue() <= 6000 ){
+		if(worldSize.intValue() <= 6000 ){
 			
-			floater = totalObjects/5;
-			edible = totalObjects/6;
-			blackHole = totalObjects/7 ;
+			floater = totalObjects/8;
+			edible = 5;
+			blackHole = totalObjects/5 ;
 		}
-
+	
+		else if( worldSize.intValue() >= 6001 && worldSize.intValue() <= 8500 ){
+			
+			floater = totalObjects/4;
+			edible = 10;
+			blackHole = totalObjects/4 ;
+		}
 		
-		if( WorldSize.intValue() >= 6001 && WorldSize.intValue() <= 8500 ){
+		else if( worldSize.intValue() >= 8501 && worldSize.intValue() <= 10000 ){
+			
+			floater = totalObjects/4;
+			edible = 10;
+			blackHole = totalObjects/4 ;
+		}
+		
+		else if( worldSize.intValue() >= 10001 && worldSize.intValue() <= 12000 ){
 			
 			floater = totalObjects/2;
-			edible = totalObjects;
-			blackHole = totalObjects/4 ;
+			edible = 10;
+			blackHole = totalObjects/2 ;
 		}
 		
 		else {
 			
 			floater = totalObjects;
-			edible = totalObjects *2;
+			edible = 10;
 			blackHole = totalObjects/2 ;
 		}
 		 
 			spawns.put("Floater",floater);
 			spawns.put("Edible",edible);
 			spawns.put("BlackHole",blackHole);
+			System.out.println("total objects="+worldSize);
+			System.out.println("total objects="+totalObjects);
 		
 		return spawns;
 	}
@@ -145,8 +161,8 @@ public class WorldFactory {
 			for(int i=0; i< spawn.get("Floater"); i++){
 				speed = randomSpeed();
 				pos = randomPosition();
-				mass = 100;
-				radius = 50;
+				mass = Double.parseDouble(Config.get("floater_mass"));
+				radius = Double.parseDouble(Config.get("floater_size"));
 				
 				gameObjects.add( new Floater(worldCollection, speed, pos, mass, radius) );
 			}
@@ -154,11 +170,11 @@ public class WorldFactory {
 		if( spawn.containsKey("BlackHole") ){
 			for(int i=0; i< spawn.get("BlackHole"); i++){
 				pos = randomPosition();
-				mass = 100;
-				radius = 130;
+				mass = Double.parseDouble(Config.get("black_hole_mass"));
+				radius = Double.parseDouble(Config.get("black_hole_size"));
 				
 				while(!checkPos(pos,radius,gameObjects)){
-					pos =randomPosition();
+					pos = randomPosition();
 				}
 				gameObjects.add( new BlackHole(worldCollection, pos, mass, radius) );
 			}
@@ -167,8 +183,8 @@ public class WorldFactory {
 			for(int i=0; i< spawn.get("Edible"); i++){
 				speed = randomSpeed();
 				pos = randomPosition();
-				mass = 10;
-				radius = 70;
+				mass = Double.parseDouble(Config.get("edible_mass"));
+				radius = Double.parseDouble(Config.get("edible_size"));
 
 				gameObjects.add( new Edible(worldCollection, speed, pos, mass, radius) );
 			}
@@ -212,7 +228,7 @@ public class WorldFactory {
 	 * @return speed	Vector with two speed values
 	 */
 	public Vector2D randomSpeed() {
-		double speedMultiplier = 30;
+		double speedMultiplier = 50;
 		Vector2D speed = new Vector2D((Math.random() * speedMultiplier) - speedMultiplier/2, (Math.random() * speedMultiplier) - speedMultiplier/2);
 		return speed;
 	}
