@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import util.*;
 
 /**
- * Movable class represents a movable object in space
+ * Moveable class represents a generic floating object in space with mass which 
+ * also is collidable with other Moveable objets.
  * 
  * @author Victor
- *
+ * @version 2016-03-04
  */
 
 public class Moveable 
@@ -25,17 +26,15 @@ implements Serializable
 	protected Vector2D velocity_diff = new Vector2D(0,0);
 	private double collision_damping = 0.99;
 	private double max_speed_sqr = 2500;
-
-	/**
-	 * Constructor
-	 */
-	/*public Moveable(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
-	
 	
 	/**
-	 * Constructor
+	 * Constructor for Moveable Class
+	 * 
+	 * @param world The WorldCollection of objects.
+	 * @param velocity	The velocity vector.
+	 * @param position	The position vector.
+	 * @param mass		The mass value.
+	 * @param radius	The radius value.
 	 */
 	public Moveable (WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius) {
 		super(world, position, mass, radius);
@@ -47,10 +46,9 @@ implements Serializable
 	
 	
 	/**
-	 * Move this Floater and notify observers
+	 * Moves this object under given time and notify observers
 	 * 
-	 * @param dt - delta time
-	 * @return void
+	 * @param dT - The time under which the object is moved
 	 */
 	public void move(double dT){
 		velocity = velocity.add(velocity_diff);	// V1 = V1 + A*dT
@@ -63,8 +61,10 @@ implements Serializable
 	
 	
 	/**
-	 * Accelerates this using some force.
-	 * @param force
+	 * Accelerates this object under given time, affected by given force.
+	 * 
+	 * @param force - The force which accerlates this object.
+	 * @param dT - The time under which the object is accelerated.
 	 */
 	public void accelerate(Vector2D force, double dT) {
 		velocity_diff = velocity_diff.add(force.div(mass).scale(dT));
@@ -73,18 +73,18 @@ implements Serializable
 	
 	/**
 	 * Return this objects velocity vector.
-	 * @return Vector2D the velocity vector.
+	 * 
+	 * @return velocity The velocity vector.
 	 */
 	public Vector2D getVelocity(){
 		return velocity;
 	}
 
+	
 	/**
-	 * Help method that checks collision between this Moveable object and the WorldCollection,
-	 * if collisioncheck detects collision with another object it calls CollisionResponse() method
-	 * and stores the collision vector in instancevariable velocity_diff.
-	 * @param WorldCollection the rest of the world
-	 * @return void f
+	 * Help method that checks for collision between this Moveable object and the list of all Worldobjects.
+	 * 
+	 * @param data - The list of WorldObjects
 	 */
 	public void collisions(ArrayList<WorldObject> data){
 		for(WorldObject obj : data){
@@ -94,8 +94,12 @@ implements Serializable
 		}
 	}
 	
+	
 	/**
-	 * Check if this object collides with another
+	 * Checks if this object collides with another WorldObject
+	 * 
+	 * @param other The other Worldobject
+	 * @return boolean - Returns true/flase depending if collision happens or not.
 	 */
 	protected boolean collides(WorldObject other) {
 		double lengthsqr = this.position.sub(other.getPosition()).lengthsquared();
@@ -103,10 +107,12 @@ implements Serializable
 		return (lengthsqr < radlength*radlength);
 	}
 	
+	
 	/**
-	 * Calculates the collisionvector as elastic between this object and the object it collides with.
-	 * @param WorldObject the object this Moveable collides with
-	 * @return Vector2D the collisionvector
+	 * Calculates the collisionvector as an elastic collision between this object
+	 * and the object it collides with and adds it to this objects velocity_diff.
+	 * 
+	 * @param obj - The object this object collides with. 
 	 */
 	protected void collision(WorldObject obj){
 		if (obj instanceof Moveable) 
@@ -126,15 +132,6 @@ implements Serializable
 			Vector2D newV1 = p1minusp2.scale(constant*collision_damping);
 			velocity_diff = velocity_diff.sub( newV1 );
 			
-			/*
-			Moveable moveable = (Moveable) obj;
-			double dot = velocity.sub(moveable.getVelocity()).dot(position.sub(moveable.getPosition()));
-			Vector2D dv = position.sub(moveable.getPosition());
-			dv = dv.scale(  dot/position.sub(moveable.getPosition()).lengthsquared());
-			dv = dv.div(mass+moveable.getMass());
-			return dv.scale(collision_damping*2*moveable.getMass());
-			*/
-			
 		} else {
 			double dot = velocity.dot(position.sub(obj.getPosition()));
 			Vector2D dv = position.sub(obj.getPosition());
@@ -142,6 +139,13 @@ implements Serializable
 			velocity_diff = velocity_diff.sub( dv.scale(collision_damping*2) );
 		}	
 	}
+	
+	
+	/**
+	 * Calcuates the collisionvector with the bounderies of the world and adds it to this objects
+	 * velocity_diff.
+	 * 
+	 */
 	public void wallCollide(){
 		double r = theWorld.getWorldSize()/2-this.getRadius();
 		if(position.lengthsquared() > r*r){

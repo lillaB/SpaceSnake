@@ -27,17 +27,7 @@ implements Serializable
 	protected SnakePart nextPart;
 	private double stiffness = 10;
 	private double linkLength = 40;
-	private double damping = 0.9;
-
-	
-	/**
-	 * Constructor with doubles
-	 */
-	/*public SnakePart(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
-			double mass, double radius) {
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
-	
+	private double damping = 0.9;	
 	
 	/**
 	 * Constructor with vectors
@@ -112,8 +102,8 @@ implements Serializable
 	
 	/**
 	 * Checks if a obj is the neighbor of this one.
-	 * @param obj
-	 * @return
+	 * @param obj the other part that gets checked
+	 * @return	true if it is just in front of or just behind
 	 */
 	protected boolean isNeighbor (WorldObject obj) {
 		if (obj instanceof SnakePart)

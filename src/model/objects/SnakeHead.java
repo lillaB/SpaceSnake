@@ -2,7 +2,6 @@ package model.objects;
 
 import java.io.Serializable;
 
-import controller.GameController;
 import model.WorldCollection;
 import model.WorldObject;
 import util.Config;
@@ -24,14 +23,8 @@ implements Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private double new_Tail_radius = 10;
-	private double new_Tail_mass = 10;
-
-	
-	/*public SnakeHead(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
-			double mass, double radius) {
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
+	private double new_Tail_radius;
+	private double new_Tail_mass;
 	
 	public SnakeHead(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius) {
 		super(world, velocity, position, mass, radius);
@@ -56,7 +49,7 @@ implements Serializable
 	}
 	
 	private void die() {
-		theWorld.gameover();
+		theWorld.delete(this);
 	}
 	
 	private void eat(Edible what)
@@ -75,12 +68,12 @@ implements Serializable
 		if (last.equals(this))
 			tail = new SnakeTail(theWorld, this.getVelocity(), 
 					this.getPosition().sub(this.getVelocity().normalize().scale(this.getRadius()+new_Tail_radius)),
-					new_Tail_radius,new_Tail_mass);
+					new_Tail_mass,new_Tail_radius);
 		else
 			tail = new SnakeTail(theWorld, 
 					last.getVelocity(), 
 					last.getPosition().add(last.getPosition().sub(second_last.getPosition()).normalize().scale(last.getRadius()+new_Tail_radius)),  
-					new_Tail_radius,new_Tail_mass);
+					new_Tail_mass,new_Tail_radius);
 		
 		// Add the tailpart
 		last.addTail(tail);
@@ -88,7 +81,6 @@ implements Serializable
 		
 		//kill the edible object
 		what.kill();
-		theWorld.remove(what);
 		
 		//Get points?
 		//other actions?

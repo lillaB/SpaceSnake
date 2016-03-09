@@ -3,8 +3,22 @@ package util;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * Class for parsing information between different formats. The so far only implemented method is for transforming
+ * a String to a Color.
+ * @author Gustav
+ * @version 2016-03-05
+ */
+
 public class Parser {
 
+	/**
+	 * Transforms a String to a Color. Either by recognizing one of a few standard color names or by parsing three or four 0-255
+	 * numbers (separated by either of , . or space) to integers and using them for red, green, blue(, alpha). Values less than 0 
+	 * is changed to 0 and values greater than 255 to 255.
+	 * @param string Some String to be parsed
+	 * @return The Color
+	 */
 	public static Color ColorFromString (String string) {
 		
 		String s = string.toLowerCase().trim();

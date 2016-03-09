@@ -14,6 +14,7 @@ import java.io.Serializable;
  * All internal calculations are done with double precision.
  * 
  * @author Gustav
+ * @version 2016-03-04
  */
 
 
@@ -192,7 +193,7 @@ implements
 	public boolean isColinear(Vector2D other) {
 		return 	(x==0&&y==0&&other.getX()==0&&other.getY()==0)
 				||
-				(x>0==other.getX()>0)&&(x/y==other.getX()/other.getY());
+				(x/y==other.getX()/other.getY());
 	}
 	
 	/**
@@ -201,7 +202,7 @@ implements
 	public static boolean isColinear(Vector2D first,Vector2D second) {
 		return 	(first.getX()==0 && first.getY()==0 && second.getX()==0 && second.getY()==0)
 				||
-				(first.getX()>0==second.getX()>0)&&(first.getX()/first.getY()==second.getX()/second.getY());
+				(first.getX()/first.getY()==second.getX()/second.getY());
 	}
 	
 	/**
@@ -503,7 +504,6 @@ implements
 	
 	/**
 	 * Scales a vector with a scalar
-	 * @return			The new vector
 	 */
 	public void scaleself(double scalar) {
 		this.x *= scalar;
@@ -616,8 +616,8 @@ implements
 	
 	/**
 	 * Calculates the squared distance between this vector and the passed parameter vector.
-	 * @param vector
-	 * @return
+	 * @param vector the second vector between which the distance squared is calculated
+	 * @return the length squared between the vectors
 	 */
 	public double distancesquared(Vector2D vector){
 		return sub(vector).lengthsquared();
@@ -625,8 +625,9 @@ implements
 	
 	/**
 	 * Calculates the squared distance between two vectors.
-	 * @param vector
-	 * @return
+	 * @param first	The first vector.
+	 * @param second	The second vector.
+	 * @return the length squared between the vectors
 	 */
 	public static double distancesquared(Vector2D first, Vector2D second){
 		return diff(first, second).lengthsquared();
@@ -699,27 +700,24 @@ implements
 	 ************************************************ */
 	
 	/**
-	 * Calculates the angle between two vectors
+	 * Calculates the angle between two vectors using Math.atan2
 	 * @return the angle in the interval 0 - 2pi
-	 * @see Math.atan2
 	 */
 	public static double angle (Vector2D first, Vector2D second) {
 		return Math.atan2(second.getY(),second.getX()) - Math.atan2( first.getY(),first.getX());
 	}
 	
 	/**
-	 * Calculates the angle this and another vector
+	 * Calculates the angle this and another vector using Math.atan2
 	 * @return the angle in the interval 0 - 2pi
-	 * @see Math.atan2
 	 */
 	public double angle (Vector2D other) {
 		return Math.atan2(other.getY(),other.getX()) - Math.atan2(y,x);
 	}
 	
 	/**
-	 * Calculates the angle between this and the x-axis
+	 * Calculates the angle between this and the x-axis using Math.atan2
 	 * @return the angle in the interval 0 - 2pi
-	 * @see Math.atan2
 	 */
 	public double angle () {
 		return Math.atan2(y,x);

@@ -1,4 +1,4 @@
-package view.map;
+package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -13,15 +13,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 
 import model.Floater;
-import model.WorldCollection;
 import model.WorldObject;
 import model.objects.BlackHole;
 import model.objects.Edible;
@@ -30,9 +27,8 @@ import model.objects.SnakeTail;
 
 import util.Config;
 import util.Parser;
-import view.GameComponent;
-import view.GameObserver;
-import view.figures.*;
+import view.figures.Figure;
+import view.figures.MapFigure;
 
 /**
  * This is a class that just contains the game itself
@@ -41,23 +37,21 @@ import view.figures.*;
  * is observer at the model on updates there (new objects?)
  * 
  * @author Gustav
- * @version 2016-02-05
+ * @version 2016-03-04
  */
 
 
 @SuppressWarnings("serial")
 public class MapView 
-extends GameComponent 
-implements MouseListener, GameObserver, ActionListener
+extends WorldView
+implements MouseListener, ActionListener
 {
 
-	//Temp variable until the proper world gets used
-	int worldSize=800;
-	
 	// Determines the zoom level
 	protected float mapSize = 1;
 	private int margin = 5;
 	
+	//All figures in the map
 	private ArrayList<MapFigure> theList = new ArrayList<MapFigure>();
 	
 	//Update itself every now and then
@@ -74,15 +68,9 @@ implements MouseListener, GameObserver, ActionListener
 	 * Constructor that generates the view.
 	 */
 	public MapView ()
-	{
-		System.out.println("Mapview created");		
+	{	
 		this.build();
 		this.addMouseListener(this);
-		
-		bg_color1 = Parser.ColorFromString(Config.get("Map_bg_color1"));
-		bg_color2 = Parser.ColorFromString(Config.get("Map_bg_color2"));
-		bg_color3 = Parser.ColorFromString(Config.get("Map_bg_color3"));
-		border_color = Parser.ColorFromString(Config.get("Map_border_color"));
 		
 		t = new Timer(500,this); //Only needed if nothing is repainted in the gameview.
 		t.setActionCommand("Repaint");
@@ -98,11 +86,16 @@ implements MouseListener, GameObserver, ActionListener
 		//Use coordinates for positioning
 		this.setLayout(null);
 		mapSize = Integer.parseInt(Config.get("Map_size"));
+		bg_color1 = Parser.ColorFromString(Config.get("Map_bg_color1"));
+		bg_color2 = Parser.ColorFromString(Config.get("Map_bg_color2"));
+		bg_color3 = Parser.ColorFromString(Config.get("Map_bg_color3"));
+		border_color = Parser.ColorFromString(Config.get("Map_border_color"));
 	}
 
 	
 	/**
 	 * This draws the map.
+	 * @param g		The graphics object that is used
 	 */
 	@Override
     public void paintComponent(final Graphics g) {
@@ -122,7 +115,7 @@ implements MouseListener, GameObserver, ActionListener
         g2.setStroke(new BasicStroke(2*worldSize/mapSize));
         
         Point2D center = new Point2D.Double(0, 0);
-        Point2D focus = center;//new Point2D.Float(40, 40);
+        Point2D focus = center;
         float[] dist = {0.0f, 0.9f, 1.0f};
         Color[] colors = {bg_color1, bg_color2, bg_color3};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) worldSize/2, focus, dist, colors, CycleMethod.NO_CYCLE);
@@ -144,45 +137,31 @@ implements MouseListener, GameObserver, ActionListener
     }
 	
 	
-	//Do nothing on any MouseEvents
+	///////////////////////////////////
+	// Do nothing on any MouseEvents //
+	///////////////////////////////////
+	/** Do nothing */
 	@Override public void mouseClicked(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseEntered(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseExited(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mousePressed(MouseEvent arg0) {}
+	/** Do nothing */
 	@Override public void mouseReleased(MouseEvent arg0) {}
 	
 	
 	/**
-	 * Needed for the rounded corners.
+	 * Needs to override for the rounded corners. Checks if som x and y coordinates are within it
+	 * @param x		The x-coordinate (pixels)
+	 * @param y		The y-coordinate (pixels)
 	 */
 	@Override
 	public boolean contains (int x, int y) {
 		double x1 = (this.getWidth()-margin-mapSize/2)-x;
 		double y1 = (this.getHeight()-margin-mapSize/2)-y;
 		return mapSize*mapSize/4 > x1*x1+y1*y1;
-	}
-	
-	
-	/**
-	 * Update function run by the observable (through notifyobservers).
-	 */
-	@Override //Something happened in the world!!!
-	public void update(Observable who, Object what) {
-		if (what instanceof WorldObject) {
-			addItem((WorldObject) what);
-		}
-	}
-	
-	
-	/**
-	 * Adds a complete world to the view (including all objects and constants).
-	 */
-	public void addWorld (WorldCollection world) {
-		for (WorldObject thing : world.getCollection()) {
-			addItem(thing);
-		}
-		System.out.println("Addworld i MapView");
-		worldSize=(int)world.getWorldSize();
 	}
 	
 	
@@ -198,7 +177,8 @@ implements MouseListener, GameObserver, ActionListener
 	 * Adds some item to the world
 	 * @param what	The item to add
 	 */
-	private void addItem (WorldObject what) {
+	@Override
+	protected void addItem (WorldObject what) {
 		final MapFigure figure;
 		if (what instanceof Floater) {
 			figure = new MapFigure(this, what.getPosition(), what.getRadius()*2, new Color(0,0,155));
@@ -224,14 +204,15 @@ implements MouseListener, GameObserver, ActionListener
 	 * Remove some item from the world. Called from the items themselves.
 	 * @param who	The item to remove
 	 */
-	public void removeMe(MapFigure who) {
-		theList.remove(who);
+	@Override
+	public void removeMe(Figure who) {
+		theList.remove((MapFigure)who);
 	}
 
 
 	/**
 	 * For commands sent from the game view menu
-	 * @param e
+	 * @param e		the ActionEvent that happened
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

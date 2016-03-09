@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import model.WorldCollection;
 
@@ -13,11 +15,11 @@ import controller.menucontroller.GameOverMenuController;
 import controller.menucontroller.IngameMenuController;
 import controller.menucontroller.StartupMenuController;
 import util.GameEvent;
-
+import util.Vector2D;
 import view.View;
 
 /**
- * Creates view and model, handles events from the keyboard and implements actions from subcontrollers
+ * Creates view and subcontrollers, handles events from the keyboard and implements actions from subcontrollers
  * 
  * @author Ingrid, Micaela
  * @version 2016-02-28
@@ -63,15 +65,10 @@ public class MainController implements ActionListener {
 	private void configView () {
 		view.addActionListener(this);
 		view.addKeyListener(KeyEvent.VK_ESCAPE, GameEvent.ESC_PRESSED);
-	}
-	
-	/* TODO: Add model and fix where to have the methods for GameController
-	public void addModel(Model model){
-		System.out.println("Controller: adding model");
-		this.model = model;
-	}*/
-	public GameController getGameController(){
-		return this.gameController;
+		view.addKeyListener(KeyEvent.VK_UP, GameEvent.UP_PRESSED);
+		view.addKeyListener(KeyEvent.VK_DOWN, GameEvent.DOWN_PRESSED);
+		view.addKeyListener(KeyEvent.VK_RIGHT, GameEvent.RIGHT_PRESSED);
+		view.addKeyListener(KeyEvent.VK_LEFT, GameEvent.LEFT_PRESSED);
 	}
 	
 	/**
@@ -82,35 +79,53 @@ public class MainController implements ActionListener {
 		view.hideStartupMenu();			
 		gameController.addObserver(view.showNewGame(gameController));
 		gameController.addObserver(view.showNewMap());
-		gameController.runPhysics();
+		
+		final Timer timer = new Timer();
+	    timer.schedule(new TimerTask() {
+	        public void run() {
+	        	gameController.runPhysics();
+	            timer.cancel();
+	        }}, 100);
+		
 		state = GAME_VIEW;
 	}
 		
 	/**
-	 * Loads the game
+	 * Loads a game
 	 */
 	public void loadGame() {
 		//Get filename from gui
 		String filename = view.loadGameFileChooser();
-		FileInputStream fis = null;
-	    ObjectInputStream in = null;
-	    WorldCollection theWorld = null;
-	    //Load the game
-	    try {
-	    	fis = new FileInputStream(filename);
-	    	in = new ObjectInputStream(fis);
-	    	theWorld = (WorldCollection) in.readObject();
-	    	in.close();
-	    } catch (Exception ex) {
-	    	ex.printStackTrace();
-	    }
-	    //Start the game
-	    gameController.loadGame(theWorld);
-	    view.hideStartupMenu();			
-		gameController.addObserver(view.showNewGame(gameController));
-		gameController.addObserver(view.showNewMap());
-		gameController.runPhysics();
-		state = GAME_VIEW;
+		if (filename != null)
+		{
+			FileInputStream fis = null;
+			ObjectInputStream in = null;
+			WorldCollection theWorld = null;
+			//Load the game
+			try {
+				fis = new FileInputStream(filename);
+				in = new ObjectInputStream(fis);
+				theWorld = (WorldCollection) in.readObject();
+				in.close();
+				
+				//Start the game
+				gameController.loadGame(theWorld);
+				view.hideStartupMenu();			
+				gameController.addObserver(view.showNewGame(gameController));
+				gameController.addObserver(view.showNewMap());
+				
+				final Timer timer = new Timer();
+			    timer.schedule(new TimerTask() {
+			        public void run() {
+			        	gameController.runPhysics();
+			            timer.cancel();
+			        }}, 100);
+				
+				state = GAME_VIEW;
+			} catch (Exception ex) {
+				view.messageDialog("Error while loading file.");
+			}
+		}
 	}
 	
 	/**
@@ -136,20 +151,23 @@ public class MainController implements ActionListener {
 	public void saveGame() {
 		//get filename from gui
 		String filename = view.saveGameFileChooser();
-		System.out.println(filename);
-		//get worldcollection
-		WorldCollection theWorld = gameController.getWorldCollection();
-		//Save the game
-		FileOutputStream fos = null;
-	    ObjectOutputStream out = null;
-	    try {
-	    	fos = new FileOutputStream(filename);
-	    	out = new ObjectOutputStream(fos);
-	    	out.writeObject(theWorld);
-	    	out.close();
-	    } catch (Exception ex) {
-	    	ex.printStackTrace();
-	    }		
+		if (filename != null)
+		{
+			System.out.println(filename);
+			//get worldcollection
+			WorldCollection theWorld = gameController.getWorldCollection();
+			//Save the game
+			FileOutputStream fos = null;
+	    	ObjectOutputStream out = null;
+	    	try {
+	    		fos = new FileOutputStream(filename);
+	    		out = new ObjectOutputStream(fos);
+	    		out.writeObject(theWorld);
+	    		out.close();
+	    	} catch (Exception ex) {
+	    		view.messageDialog("Error while saving file.");
+	    	}
+		}
 	}
 	
 	/**
@@ -203,11 +221,20 @@ public class MainController implements ActionListener {
 				break;
 			}
 		}
-		else if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
-			exit();
+		if (e.getActionCommand().equals(GameEvent.UP_PRESSED)) {
+			gameController.accelerate(new Vector2D(0,-1));
 		}
-		else {
-			System.out.println(e); //debugging
+		if (e.getActionCommand().equals(GameEvent.DOWN_PRESSED)) {
+			gameController.accelerate(new Vector2D(0,1));
+		}
+		if (e.getActionCommand().equals(GameEvent.RIGHT_PRESSED)) {
+			gameController.accelerate(new Vector2D(1,0));
+		}
+		if (e.getActionCommand().equals(GameEvent.LEFT_PRESSED)) {
+			gameController.accelerate(new Vector2D(-1,0));
+		}
+		if (e.getActionCommand() == GameEvent.WINDOW_CLOSED) {
+			exit();
 		}
 	}
 }

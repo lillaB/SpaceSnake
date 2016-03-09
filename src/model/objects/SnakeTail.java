@@ -22,11 +22,6 @@ implements Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/*public SnakeTail(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos,
-			double mass, double radius) {
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
-	
 	public SnakeTail(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius) {
 		super(world, velocity, position, mass, radius);
 	}

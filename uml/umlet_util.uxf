@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.1.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>0</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;util class&gt;&gt;
+Package::util
+{implements LayoutManager }
+FillAllLayout
+--
+
+--
++ FillAllLayout()
+--
+Responsibilities
+-- Overwrites methods to give 
+   them certain functions.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;util class&gt;&gt;
+Package::util
+{}
+Config
+--
+- configFile : Properties
+- loaded : boolean
+--
++ Config(String)
++ get(String): String
+--
+Responsibilities
+-- writing to and from configfile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>0</y>
+      <w>260</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;util class&gt;&gt;
+Package::util
+{extends ActionEvent }
+GameEvent
+--
++ ESC_PRESSED : String
++ UP_PRESSED : String
++ DOWN_PRESSED : String
++ RIGHT_PRESSED : String
++ LEFT_PRESSED : String
++ WINDOW_CLOSED : String
++ RETURN_TO_GAME : String
++ SAVE_GAME : String
++ EXIT_GAME : String
++ START_NEW_GAME : String
++ LOAD_GAME : String
++ EXIT : String
++ BACK_TO_MENU : String
++ MOUSE_PRESSED : String
++ MOUSE_RELEASED : String
++ MOUSE_DRAGGED : String
++ ZOOM_IN : String
++ ZOOM_OUT : String
+- vector : Vector2D
+--
++ GameEvent(Object, String)
++ GameEvent(Object, String, Vector2D)
++ getVector(): Vector2D
+--
+Responsibilities
+-- Listener functions</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>740</x>
+      <y>0</y>
+      <w>240</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;util class&gt;&gt;
+Package::util
+{}
+Parser
+--
+
+--
++ ColorFromString(String)
+--
+Responsibilities
+-- Interpetets a string to give an 
+   object a color.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>0</y>
+      <w>360</w>
+      <h>1450</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;util class&gt;&gt;
+Package::util
+{implements ,Comparable&lt;Vector2D&gt;,Serializable}
+Vector2D
+--
+- serialVersionUID
++ x : double
++ y : double
+--
++ Vector2D()
++ Vector2D(double, double)
++ Vector2D(float, float)
++ Vector2D(int, int)
++ Vector2D(Integer, Integer)
++ Vector2D(Dimension)
++ Vector2D(Point)
++ Vector2D(Vector2D)
++ toString(Vector2D): String
++ compareTo(Vector2D): int
++ compare(Vector2D, Vector2D): int
++ equals(Vector2D):boolean
++ equals(Vector2D, Vector2D): boolean
++ isColinear(Vector2D): boolean
++ isColinear(Vector2D, Vector2D): boolean
++ isOrthogonal(Vector2D): boolean
++ isOrthogonal(Vector2D, Vector2D): boolean
++ opposite(): Vector2D
++ opposite(Vector2D): Vector2D
++ othogonal(): Vector2D
++ othogonal(Vector2D): Vector2D
++ x(): double
++ y(): double
++ getX(): double
++ getY(): double
++ setValues(Vector2D): void
++ setValues(Dimension): void
++ setValues(Point):void
++ setX(double): double
++ setY(double): double
++ setX(float): double
++ setY(float): double
++ setX(int): double
++ setY(int): double
++ setX(Integer): double
++ setY(Integer): double
++ add(Vector2D): Vector2D
++ add(double, double): Vector2D
++ add(float, float): Vector2D
++ add(int, int). Vector2D
++ add(Integer, Integer): Vector2D
++ add(Vector2D, Vector2D): Vector2D
++ sub(Vector2D): Vector2D
++ sub(double, double): Vector2D
++ sub(float, float): Vector2D
++ sub(int, int): Vector2D
++ sub(Integer, Integer): Vector2D
++ sub(Vector2D, Vector2D): Vector2D
++ diff(Vector2D, Vector2D): Vector2D
++ scaleself(double): void
++ scale(double): Vector2D
++ scale(float): Vector2D
++ scale(int): Vector2D
++ scale(Integer): Vector2D
++ scale(Vector2D, double): Vector2D
++ div(double): Vector2D
++ div(float): Vector2D
++ div(int): Vector2D
++ div(Integer): Vector2D
++ div(Vector2D, double): Vector2D
++ normalize(): Vector2D
++ normalize(Vector2D):Vector2D
++ distancesquared(Vector2D): double
++ distancesquared(Vector2D, Vector2D): double
++ length(): double
++ length(Vector2D): double
++ lengthsquared(): double
++ lengthsquared(Vector2D)double
++ dot(Vector2D, Vector2D): double
++ dot(Vector2D): double
++ cross(Vector2D): double
++ cross(Vector2D, Vector2D): double
++ angle(Vector2D, Vector2D): double
++ angle(Vector2D): double
++ angle(): double
++ rotate(double): double
++ rotate(Vector2D, double): double
+--
+Responsibilities
+-- VectorClass, is repsonsible for all vector functions</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

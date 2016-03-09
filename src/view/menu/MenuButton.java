@@ -14,6 +14,12 @@ import javax.swing.JButton;
 
 import util.Config;
 
+/**
+ * A class that generates a prettier button (than the standard one).
+ * @author Gustav
+ * @version 2016-03-04
+ */
+
 @SuppressWarnings("serial")
 public class MenuButton 
 extends JButton
@@ -23,6 +29,10 @@ extends JButton
 	private Color highlight_color = new Color(255,0,255,255);
 	private int corner_r = 20;
 	
+	/**
+	 * Constructor that generates a button with some text.
+	 * @param string	The text on the button
+	 */
 	public MenuButton(String string) {
 		super(string);
 		setContentAreaFilled(false);
@@ -30,16 +40,35 @@ extends JButton
 		this.setFont(getFont().deriveFont(Font.BOLD, Integer.parseInt(Config.get("Menu_button_fontsize"))));
 	}
 
+	/**
+	 * Changes the background color.
+	 * @param c the new background color
+	 */
 	public void setBackground(Color c) {
 		bg_color=c;
 	}
+	
+	/**
+	 * Changes the border color.
+	 * @param c the new border color
+	 */
 	public void setBorderColor(Color c) {
 		border_color=c;
 	}
+	
+	/**
+	 * Changes the highlight color (of the text).
+	 * @param c the new highlight color
+	 */
 	public void setHighlightColor(Color c) {
 		highlight_color=c;
 	}
 	
+	/**
+	 * Paints the button
+	 * @param g_in		the graphics object that is used
+	 */
+	@Override
 	public void paintComponent(Graphics g_in) {
 		Graphics2D g = (Graphics2D) g_in;
 		int width = this.getWidth();
@@ -66,11 +95,13 @@ extends JButton
         g.drawString(text, (int)(width/2-r.getCenterX()),(int)(height/2-r.getCenterY()));
 	}
 	
-	// Do not paint other borders than in paintComponent
+	/** Do not paint other borders than in paintComponent */
 	@Override public void paintBorder(Graphics g_in) {}
 	
 	/**
-	 * Checks if some coordinates are within the button. Needed to override due to the rounded corners. 
+	 * Checks if some coordinates are within the button. Needed to override due to the rounded corners.
+	 * @param x the x-coordinate (in pixels) 
+	 * @param y the y-coordinate (in pixels) 
 	 */
 	@Override
 	public boolean contains (int x, int y) {
@@ -79,6 +110,10 @@ extends JButton
 		return (new RoundRectangle2D.Double(0, 0, width-1, height-1, corner_r, corner_r)).contains(x, y);
 	}
 	
+	/**
+	 * returns the preferred size of the button. It is calculated based on how much space the text occupies.
+	 * @return The preferred size
+	 */
 	@Override
 	public Dimension getPreferredSize() {
 		FontMetrics fm = this.getFontMetrics(this.getFont());

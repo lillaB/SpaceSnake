@@ -14,45 +14,38 @@ import util.Vector2D;
  * Class that governs the physics of the game.
  * Handles input from the game world.
  * 
- * @author Ingrid, Micaela
+ * @author Ingrid, Micaela, Victor
  * @version 2016-02-28
  */
 
 public class PhysicsEngine extends Thread
 {
     private double dT;
-    private WorldCollection data;
+    private WorldCollection world;
     private boolean setPaused;
     private double gameSpeed;
-    private Vector2D MouseDir = new Vector2D (0,0);
-    private double MouseAccPower = 1;
+    private Vector2D mouseDir = new Vector2D (0,0);
     
     /**
      * Constructor that sets the in-game physics
-     * @param	data		ArrayList of World Objects
-     * 			dt			
-     * 			gameSpeed	
+     * @param	world		The WorldCollection
+     * @param	dT			Length of time step
+     * @param	gameSpeed	Speed of game iteration
      */
-    public PhysicsEngine(WorldCollection data, double dT, double gameSpeed){
+    public PhysicsEngine(WorldCollection world, double dT, double gameSpeed){
     	this.gameSpeed = gameSpeed;
-    	this.data = data;
+    	this.world = world;
         this.dT = dT;
     }
 
+    /**
+     * Adds mouse power and direction to the snakehead
+     * @param acc	The force applied
+     */
     public void SnakePull(Vector2D acc){
-    	if(acc==null)
-    	{
-    		MouseDir = new Vector2D (0,0);
-    	}
-    	else
-    	{
-    		MouseDir = acc.scale(MouseAccPower);
-    	}
-    	
+    		mouseDir = acc;
     }
-    public void collisionResolve(){
-    	
-    }
+    
     /**
      * Starts the thread. 
      * Pauses and resumes thread based on flags.
@@ -72,8 +65,8 @@ public class PhysicsEngine extends Thread
                 break;
             }
            
-            //Make a clone so changes (additions and deletions only affect next iteration
-            ArrayList<WorldObject> collection = (ArrayList<WorldObject>) data.getCollection().clone();
+            @SuppressWarnings("unchecked")
+			ArrayList<WorldObject> collection = (ArrayList<WorldObject>) world.getCollection().clone();
     		
             for(WorldObject obj : collection){
             	if(obj instanceof IGravity ){
@@ -100,11 +93,9 @@ public class PhysicsEngine extends Thread
             }
             for(WorldObject obj : collection){
             	if(obj instanceof SnakeHead){
-            		((SnakeHead)obj).accelerate(MouseDir,dT);
+            		((SnakeHead)obj).accelerate(mouseDir,dT);
             	}	
             }
-            
-            
         }
     }
     /**

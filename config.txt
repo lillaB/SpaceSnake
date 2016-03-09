@@ -2,7 +2,11 @@
 Window_title  = Space Snake
 Window_width  = 800
 Window_height = 600
-Map_size      = 200
+Background_color = 200,200,200
+Map_size         = 200
+Startup_zoom     = 0.2
+Mouse_acc_power  = 10
+Key_acc_power    = 50
 
 Menu_padding          = 10
 Menu_corner_r         = 40
@@ -48,13 +52,27 @@ Gamemenu_button_highlight    = 200,50,50,255
 Map_bg_color3     = 180,180,180,255
 Map_bg_color2     = 200,200,200,200
 Map_bg_color1     = 255,255,255,255
-Map_border_color = 0,0,0,200
+Map_border_color  = 0,0,0,200
+
+Game_bg_color     = 200,200,200
+Game_border_color = 240,240,240
+Game_world_color  = 0,0,0
+
+Collision_damping = 0.99
+Gravity_constant = 1000
+Max_speed = 50
 
 Snake_link_stiffness = 1
 Snake_link_damping   = 0.99
-new_Tail_radius = 10
+new_Tail_radius = 30
 new_Tail_mass = 10
-	
-Collision_damping = 0.95
-Gravity_constant = 50
-Max_speed = 50
+
+edible_size = 70
+edible_mass = 30
+
+black_hole_mass = 300
+black_hole_size = 300
+
+floater_size = 100
+floater_mass = 100
+

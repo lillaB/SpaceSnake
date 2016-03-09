@@ -7,8 +7,8 @@ import util.*;
  * Floater class represents a generic floating object in space
  * having both gravity an velocity.
  * 
- * @author Model-team 
- * @version 1.0.0.0
+ * @author Victor, Joakim 
+ * @version 2016-03-04
  */
 public class Floater extends Moveable implements IGravity, Serializable{
 	
@@ -16,13 +16,17 @@ public class Floater extends Moveable implements IGravity, Serializable{
 	 * Change this value if any change is made to any fields.
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private double gravity=12;
 	
-	
-	/*public Floater(WorldCollection world, double xSpeed, double ySpeed, double xPos, double yPos, double mass, double radius){
-		this(world, new Vector2D(xSpeed, ySpeed), new Vector2D(xPos, yPos), mass, radius);
-	}*/
+
+	/**
+	 * 
+	 * @param world 	The WorldCollection of objects.
+	 * @param velocity	The velocity vector.
+	 * @param position	The position vector.
+	 * @param mass		The mass value.
+	 * @param radius	The radius value.
+	 */
 	public Floater(WorldCollection world, Vector2D velocity, Vector2D position, double mass, double radius){
 		super(world, velocity, position, mass, radius);
 		gravity=Double.parseDouble(Config.get("Gravity_constant"));
@@ -30,10 +34,10 @@ public class Floater extends Moveable implements IGravity, Serializable{
 	
 	
 	/**
-	 * Adds gravitational force to this Floater velocity
+	 * Adds effect of gravitationalforce from other objects to this object over given time.
 	 * 
-	 * @param Affecting WorldObject
-	 * @return	void
+	 * @param data The list of WorldObjects.
+	 * @param dT The time under which force accelerates this object.
 	 */
 	public void gravityPull(ArrayList<WorldObject> data, double dT) {
 		for(WorldObject obj : data){
@@ -41,11 +45,13 @@ public class Floater extends Moveable implements IGravity, Serializable{
 				((Moveable)obj).accelerate(this.calcuateGravity(obj), dT);
 		}
 	}
+	
+	
 	/**
-	 * Calculates the scaled gravitational vector between two WorldObjects.
+	 * Calculates the scaled gravitational vector between this WorldObjects and the specified WorldObject
 	 * 
-	 * @param WorldObject
-	 * @return Vector2D the scaled gravity vector
+	 * @param arg The other WorldObject
+	 * @return temp The calcuated gravitational force vector between the two objects.
 	 */
 	public Vector2D calcuateGravity(WorldObject arg) {
 		Vector2D temp = Vector2D.diff(this.getPosition(), arg.getPosition());
@@ -57,17 +63,22 @@ public class Floater extends Moveable implements IGravity, Serializable{
 		temp = temp.div(this.getPosition().distancesquared(arg.getPosition()));
 		return temp;
 	}
+	
+	
 	/**
-	 * Return this objects Gravity.
+	 * Returns this objects Gravity.
 	 * 
-	 * @return Double the gravity.
+	 * @return gravity The gravity value.
 	 */
 	public double getGravity() {
 		return gravity;
 	}
+	
+	
 	/**
 	 * Return this objects velocity vector.
-	 * @return Vector2D the velocity vector.
+	 * 
+	 * @return velocity The velocity vector.
 	 */
 	public Vector2D getVelocity(){
 		return velocity;

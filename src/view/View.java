@@ -1,10 +1,9 @@
 package view;
 import java.awt.event.ActionListener;
-import java.util.Observer;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
-import view.map.MapView;
 import view.menu.GameOverMenu;
 import view.menu.GameViewMenu;
 import view.menu.IngameMenu;
@@ -35,8 +34,6 @@ public class View
 	 */
 	public View()
 	{
-		System.out.println("view: started");
-
 		mainWindow = new MainWindow();
 		gameView = new GameView();
 		gameViewMenu = new GameViewMenu();
@@ -49,7 +46,7 @@ public class View
 	
 	/**
 	 * Add an ActionListener to the view
-	 * @param the ActionListener
+	 * @param AL ActionListener
 	 */
 	public void addActionListener(ActionListener AL) {
 		mainWindow.addActionListener(AL);
@@ -144,6 +141,12 @@ public class View
 		
 		return gameView;
 	}
+	
+	/**
+	 * Shows a cleared Game
+	 * @param AL	an ActionListener that listenes to gameactions
+	 * @return	the GameView
+	 */
 	public GameObserver showNewGame(ActionListener AL)
 	{
 		gameView.clear();
@@ -152,13 +155,18 @@ public class View
 	
 	/**
 	 * Shows a Map in which everything happens.
-	 * @param AL	The ActionListener to which the game sends its actions
+	 * @return the MapView
 	 */
 	public GameObserver showMap()
 	{
 		mainWindow.addGameComponent(mapView, MainWindow.MAPLAYER);
 		return mapView;
 	}
+	
+	/**
+	 * Shows a cleared map.
+	 * @return the MapView
+	 */
 	public GameObserver showNewMap()
 	{
 		mapView.clear();
@@ -200,6 +208,17 @@ public class View
 	    	return filechooser.getSelectedFile().toString();
 	    else return null;
 	}
+	
+	
+	/**
+	 * Shows a popup dialog for error messages.
+	 * @param message	The message that is in the dialogue
+	 */
+	public void messageDialog(String message) {
+		//custom title, error icon
+		JOptionPane.showMessageDialog(mainWindow, message, "Message", JOptionPane.ERROR_MESSAGE);
+	}
+	
 }
 
 

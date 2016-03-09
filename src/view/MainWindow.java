@@ -19,8 +19,7 @@ import javax.swing.KeyStroke;
 import util.GameEvent;
 import util.Config;
 import util.FillAllLayout;
-
-
+import util.Parser;
 
 /**
  * This is a class that just contains the MainWindow in one JFrame
@@ -61,8 +60,7 @@ implements WindowListener
 	 * Constructor that generates the window.
 	 */
 	public MainWindow ()
-	{
-		System.out.println("Main window created");		
+	{	
 		this.build();
 	}
 	
@@ -90,16 +88,17 @@ implements WindowListener
 		theWindow.setPreferredSize(new Dimension(
 				Integer.parseInt(Config.get("Window_width")), 
 				Integer.parseInt(Config.get("Window_height"))));
-		
+
 		theWindow.pack();
-        
+		
 		//Always place the window 1/3 from the top left corner
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         theWindow.setLocation(d.width/3 - theWindow.getWidth()/3, d.height/3 - theWindow.getHeight()/3);
         
         theWindow.setVisible(true);
 		theWindow.addWindowListener(this);
-                
+		
+        theWindow.getContentPane().setBackground(Parser.ColorFromString(Config.get("Background_color")));
         theWindow.getContentPane().add(theContent);
         theContent.setLayout(new FillAllLayout());    
 	}
@@ -107,6 +106,8 @@ implements WindowListener
 
 	/**
 	 * Adds KeyStrokeEvents and sends ActionEvents to the ActionListeners.
+	 * @param key			The key to listen to
+	 * @param theCommand	A String that gets sent as a command when the key is pressed
 	 */
 	public void addKeyListener (int key, String theCommand) {
 		
@@ -116,7 +117,7 @@ implements WindowListener
 		InputMap inputMap  = ((JComponent)theWindow.getContentPane()).getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	    ActionMap actionMap = ((JComponent)theWindow.getContentPane()).getActionMap();
 	    
-	    inputMap.put(KeyStroke.getKeyStroke(key, 0), code); //KeyEvent.VK_ESCAPE
+	    inputMap.put(KeyStroke.getKeyStroke(key, 0), code);
 	    actionMap.put(code, new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
@@ -146,6 +147,7 @@ implements WindowListener
 	 */
 	private void pack()
 	{
+		theWindow.setPreferredSize(theWindow.getSize());
 		theWindow.pack();
 	}
 	
@@ -161,22 +163,25 @@ implements WindowListener
 	}
 
 
-	//WindowEvents:
-	@Override
-	public void windowActivated(WindowEvent e) {}
-	@Override
-	public void windowClosed(WindowEvent e) {}
+	////////////////////////
+	//    WindowEvents    //
+	////////////////////////
+	/** Do nothing. */
+	@Override public void windowActivated(WindowEvent e) {}
+	/** Do nothing. */
+	@Override public void windowClosed(WindowEvent e) {}
+	/** Sends an GameEvent when the window is closed. */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		fireEvent(new GameEvent(this, GameEvent.WINDOW_CLOSED));
 	}
-	@Override
-	public void windowDeactivated(WindowEvent e) {}
-	@Override
-	public void windowDeiconified(WindowEvent e) {}
-	@Override
-	public void windowIconified(WindowEvent e) {}
-	@Override
-	public void windowOpened(WindowEvent e) {}
+	/** Do nothing. */
+	@Override public void windowDeactivated(WindowEvent e) {}
+	/** Do nothing. */
+	@Override public void windowDeiconified(WindowEvent e) {}
+	/** Do nothing. */
+	@Override public void windowIconified(WindowEvent e) {}
+	/** Do nothing. */
+	@Override public void windowOpened(WindowEvent e) {}
 	
 }

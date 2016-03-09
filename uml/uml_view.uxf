@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="11.3">
+  <zoom_level>4</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>672</x>
+      <y>616</y>
+      <w>168</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>Package::view
+*MainWindow*
+--
++GAMELAYER:int
++MAPLAYER:int
++GAMECONTROLLAYER:int
++MENULAYER:int
++GAMEMENULAYER:int
++MESSAGELAYER:int
++TOPLAYER:int
+-theWindow:JFrame
+-theContent:JLayeredPane
+--
++MainWindow()
++MainWindow(ActionListener)
+-build():void
++addKeyListener(int,String):void
++addGameComponent(GameComponent,int)
+--
+Responsibilities
+-- This class contains the window in which 
+    everything is shown</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>672</x>
+      <y>180</y>
+      <w>168</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>Package::view
+*View*
+--
+--
++View()
++addActionListener(ActionListener):void
++showStartupMenu(ActionListener):void
++hideStartupMenu():void
++showIngameMenu(ActionListener):void
++hideIngameMenu():void
++showGameOverMenu(ActionListener):void
++hideGameOverMenu():void
++showGame(ActionListener):void
++showNewGame(ActionListener):void
++showMap(ActionListener):void
++showNewMap(ActionListener):void
++hideGame():void
++saveGameFileChooser():String
++loadGameFileChooser():String
+--
+Responsibilities
+-- This class deals with every gui action</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>744</x>
+      <y>304</y>
+      <w>20</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;312</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>480</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>Package::view
+*GameView*
+--
+-worldSize:int
+-zoom:float
+-zoomstep:double
+-snakePosition:Vector2D
+--
++GameView()
++GameView(ActionListener)
++clear():void
+-build():void
++zoom(int):float
+-relativePosition(Point):Vector2D
+-addItem(WorldObject):void
+-addFigure(GameFigure):void
++removeMe(GameFigure):void
++updateSnakePosition(Vector2D):void
+--
+Responsibilities
+-- shows the gameview in which all objectsare shown.
+-- handles the mouse actions that controlls the snake.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>816</x>
+      <y>304</y>
+      <w>152</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;192;144;192</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1156</x>
+      <y>344</y>
+      <w>168</w>
+      <h>68</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::view
+*GameObserver*
+--
+
+--
++addWorld(WorldCollection):void
+--
+Responsibilities
+-- makes shure the views for the world can add en entire world
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>344</y>
+      <w>168</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Package::view
+*GameComponent*
+--
+-listeners:ArrayList&lt;ActionListener&gt;
+--
++GameComponent():void
++GameComponent(ActionListener):void
++addActionListener(ActionListener):void
++removeActionListener(ActionListener):void
++fireEvent(ActionEvent):void
+--
+Responsibilities
+-- master class for all components
+-- keeps track of its listeners
+-- sends ActionEvents to the listeners
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1040</x>
+      <y>432</y>
+      <w>20</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;48</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>776</x>
+      <y>408</y>
+      <w>192</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>184;12;12;12;12;208</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1048</x>
+      <y>400</y>
+      <w>200</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>192;12;192;64;12;64;12;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>872</x>
+      <y>720</y>
+      <w>168</w>
+      <h>164</h>
+    </coordinates>
+    <panel_attributes>Package::view.map
+*MapView*
+--
+-worldSize:int
+#mapSize:int
+-margin:int
+-theList:ArrayList&lt;MapFigure&gt;
+-t:Timer
+-bg_color1:Color
+-bg_color2:Color
+-bg_color3:Color
+-border_color:Color
+--
++MapView()
++clear():void
+-build():void
++contains(int,int):boolean
+-addItem(WorldObject):void
++removeMe(GameFigure):void
++actionPerformed(ActionEvent):void
+--
+Responsibilities
+-- shows the map in which all objectsare shown.
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>952</x>
+      <y>400</y>
+      <w>304</w>
+      <h>328</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>296;12;296;68;192;68;192;300;12;300;12;320</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>384</x>
+      <y>728</y>
+      <w>168</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::java.awt.event
+*ActionListener*
+--
+--
++actionPerformed(ActionEvent):void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>460</x>
+      <y>532</y>
+      <w>508</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>12;196;12;176;136;176;136;44;396;44;396;12;500;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>468</x>
+      <y>572</y>
+      <w>412</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>12;156;12;140;136;140;136;12;392;12;392;172;404;172</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>672</x>
+      <y>780</y>
+      <w>168</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::java.awt.event
+*WindowListener*
+--
+--
++windowActivated(WindowEvent):void
++windowClosed(WindowEvent):void
++windowClosing(WindowEvent):void
++windowDeactivated(WindowEvent):void
++windowDeiconified(WindowEvent):void
++windowIconified(WindowEvent):void
++windowOpened(WindowEvent):void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>748</x>
+      <y>748</y>
+      <w>20</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>12;32;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>648</y>
+      <w>168</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::java.awt.event
+*MouseWheelListener*
+--
+--
++mouseWheelMoved(MouseWheelEvent):void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1024</x>
+      <y>620</y>
+      <w>20</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>12;28;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1164</x>
+      <y>620</y>
+      <w>168</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::java.awt.event
+*MouseMotionListener*
+--
+--
++mouseDragged(MouseEvent):void
++mouseMoved(MouseEvent):void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1056</x>
+      <y>620</y>
+      <w>116</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>108;20;12;20;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>960</x>
+      <y>636</y>
+      <w>212</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>204;12;188;12;188;68;12;68;12;84</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>384</x>
+      <y>784</y>
+      <w>168</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::java.awt.event
+*MouseListener*
+--
+--
++mouseClicked(MouseEvent):void
++mouseEntered(MouseEvent):void
++mouseExited(MouseEvent):void
++mousePressed(MouseEvent):void
++mouseReleased(MouseEvent):void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>540</y>
+      <w>512</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>12;244;12;232;144;232;144;40;404;40;404;12;504;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>464</x>
+      <y>576</y>
+      <w>416</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>12;208;12;200;144;200;144;12;392;12;392;176;408;176</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1156</x>
+      <y>276</y>
+      <w>168</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::java.util
+*Observer*
+--
+--
++update(Observable,Object):void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1240</x>
+      <y>304</y>
+      <w>20</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>12;12;12;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>276</y>
+      <w>168</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::javax.swing
+*JComponent*
+--
+--
++paintComponent(Graphics):void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1080</x>
+      <y>720</y>
+      <w>168</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Package::view.map
+*MapFigure*
+--
+-size:double
+-position:Vector2D
+-color:Color
+-extra:int
+-parent:MapView
+--
++MapFigure(MapView,Vector2D,double,Color)
+-resize(double):void
++getColor():Color
++setColor(Color):void
++paintComponent(Grapichs):void
+-setPosition(Vector2D):void
++positionX():double
++positionY():double
+--
+Responsibilities
+-- Keeps the information for each object in the map
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1028</x>
+      <y>724</y>
+      <w>60</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;52;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1156</x>
+      <y>480</y>
+      <w>168</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+Package::view.figures
+*GameFigure*
+--
+#size:double
+#x:double
+#y:double
+--
++GameFigure(double,double,double,GameView)
+-setPosition(Vector2D):void
+-resize(double):void
+--
+Responsibilities
+-- superclass for all kinds of figures
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1244</x>
+      <y>304</y>
+      <w>104</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>32;12;32;28;96;28;96;140;12;140;12;176</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1004</x>
+      <y>304</y>
+      <w>20</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1028</x>
+      <y>304</y>
+      <w>200</w>
+      <h>184</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;28;116;28;116;136;192;136;192;176</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1400</x>
+      <y>448</y>
+      <w>168</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Package::view.figures
+*BlackHoleView*
+--
+--
+BlackHoleView(double,double,double,GameView)
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1400</x>
+      <y>492</y>
+      <w>168</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Package::view.figures
+*EdibleView*
+--
+--
+EdibleView(double,double,double,GameView)
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1400</x>
+      <y>536</y>
+      <w>168</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Package::view.figures
+*FloaterView*
+--
+--
+FloaterView(double,double,double,GameView)
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1400</x>
+      <y>580</y>
+      <w>168</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Package::view.figures
+*SnakeHeadView*
+--
+--
+SnakeHeadView(double,double,double,GameView)
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1400</x>
+      <y>624</y>
+      <w>168</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Package::view.figures
+*SnakeTailView*
+--
+--
+SnakeTailView(double,double,double,GameView)
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1312</x>
+      <y>448</y>
+      <w>96</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;48;72;48;72;12;88;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1312</x>
+      <y>492</y>
+      <w>96</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;72;12;88;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1312</x>
+      <y>500</y>
+      <w>96</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;72;12;72;48;88;48</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1312</x>
+      <y>508</y>
+      <w>96</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;68;12;68;84;88;84</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1312</x>
+      <y>516</y>
+      <w>96</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;64;12;64;120;88;120</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1116</x>
+      <y>480</y>
+      <w>48</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;40;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>0</x>
+      <y>376</y>
+      <w>168</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*MenuButton*
+--
+-bg_color:color
+-border_color:Color
+-highlight_color:Color
+-corner_r:int
+--
++MenuButton(String)
++setBackground(Color):void
++setBorderColor(Color):void
++setHighlightColor(Color):void
+--
+Responsibilities
+-- This is a pretty JButton</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>0</x>
+      <y>324</y>
+      <w>168</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*JButton*
+--
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>68</x>
+      <y>344</y>
+      <w>20</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;32</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>192</x>
+      <y>376</y>
+      <w>168</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*MenuPanel*
+--
+-bg_color:color
+-border_color:Color
+-corner_r:int
+-parent:GameComponent
+-titlePanel:JPanel
+-buttonPanel:JPanel
+-titleLabel:JLabel
+--
++MenuPanel(GameComponent,String)
+-setup(String):void
+-buildTitlePanel(String):JPanel
+-buildButtonPanel():JPanel
++addButton(String,String,Color,Color,Color):void
++setBackground(Color):void
++setBorderColor(Color):void
++setWidth(int):void
+
+--
+Responsibilities
+-- A pretty panel with a title and buttons</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>192</x>
+      <y>324</y>
+      <w>168</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*JPanel*
+--
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>268</x>
+      <y>344</y>
+      <w>20</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;32</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>256</x>
+      <y>508</y>
+      <w>212</w>
+      <h>284</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>204;276;204;264;12;264;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>264</x>
+      <y>508</y>
+      <w>208</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>200;220;200;208;12;208;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>404</x>
+      <y>324</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*IngameMenu*
+--
+--
++IngameMenu()
++IngameMenu(ActionListener)
+-buildMenu():void
+--
+Responsibilities
+-- Holds a zoom in and a zoom out button</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>348</x>
+      <y>320</y>
+      <w>64</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>56;12;36;12;36;132;12;132</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>472</x>
+      <y>296</y>
+      <w>496</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>488;72;108;72;108;12;12;12;12;28</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>404</x>
+      <y>396</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*GameOverMenu*
+--
+--
++GameOverMenu()
++GameOverMenu(ActionListener)
+-buildMenu():void
+--
+Responsibilities
+-- Holds the Game Over menu.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>404</x>
+      <y>468</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*GameViewMenu*
+--
+--
++GameViewMenu()
++GameViewMenu(ActionListener)
+-buildMenu():void
+--
+Responsibilities
+-- Holds the In-Game menu.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>404</x>
+      <y>540</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Package::view.menu
+*StartupMenu*
+--
+--
++StartupMenu()
++StartupMenu(ActionListener)
+-buildMenu():void
+--
+Responsibilities
+-- Holds the Start-up menu.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>348</x>
+      <y>464</y>
+      <w>64</w>
+      <h>92</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>56;84;36;84;36;12;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>348</x>
+      <y>456</y>
+      <w>64</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>56;20;44;20;44;12;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>348</x>
+      <y>392</y>
+      <w>64</w>
+      <h>76</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>56;12;44;12;44;68;12;68</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>476</x>
+      <y>364</y>
+      <w>492</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>484;12;112;12;112;24;12;24;12;32</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>476</x>
+      <y>372</y>
+      <w>492</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>484;12;120;12;120;88;12;88;12;96</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>480</x>
+      <y>380</y>
+      <w>488</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>480;12;124;12;124;152;12;152;12;160</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>808</x>
+      <y>304</y>
+      <w>120</w>
+      <h>424</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>12;12;12;200;112;200;112;416</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>560</x>
+      <y>304</y>
+      <w>136</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>128;12;128;28;12;28</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>560</x>
+      <y>304</y>
+      <w>144</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>136;12;136;104;12;104</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>560</x>
+      <y>304</y>
+      <w>152</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>144;12;144;172;12;172</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>560</x>
+      <y>304</y>
+      <w>160</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>152;12;152;244;12;244</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>156</x>
+      <y>392</y>
+      <w>44</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>36;12;12;12</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>920</x>
+      <y>432</y>
+      <w>120</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>112;12;112;36;12;36;12;288</additional_attributes>
+  </element>
+</diagram>

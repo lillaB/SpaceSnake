@@ -5,10 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
-import java.util.Observable;
-import java.util.Observer;
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
 
 import util.Vector2D;
 import view.GameView;
@@ -24,42 +20,31 @@ import view.GameView;
 
 @SuppressWarnings("serial")
 public class GameFigure 
-extends JComponent
-implements Observer
+extends Figure
 {
-
-	protected double size;
-	protected double x,y;
 
 	//Extra buffer when determining bounds
 	int extra=1;
-	
-	//Needed to repaint the containing panel and to delete itself
-	GameView parent;
 	
 	
 	/**
 	 * Constructor that takes a position (x,y) and a size and generates a GameFigure.
 	 * 
-	 * @param x		The x-position
-	 * @param y		The y-position
-	 * @param size	The size of the GameFigure
+	 * @param position	The initial position
+	 * @param size		The size of the GameFigure
 	 * @param parent	The containing GameView
 	 */
-    public GameFigure(double x, double y, double size, GameView parent)
+    public GameFigure(Vector2D position, double size, GameView parent)
     {
-        this.x=x;
-        this.y=y;
-        this.size=size;
-        this.parent=parent;
-        this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
+    	super(parent, position, size);
+        this.setBounds((int)(position.x-size/2-2*extra), (int)(position.y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
     }
 	
     
     
     /**
-     * Paints itself.
-     * @param g
+     * Paints itself. Default function that each subclass should override.
+     * @param g_in		The graphics that is used
      */
     @Override
     public void paintComponent(Graphics g_in) {
@@ -76,47 +61,17 @@ implements Observer
         String text="?";
         g.setFont(g.getFont().deriveFont((float)(size*0.75)));
         Rectangle2D r = g.getFont().getStringBounds(text, g.getFontRenderContext());
-        g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));
-        
+        g.drawString(text, (int)(size/2-r.getCenterX()),(int)(size/2-r.getCenterY()));    
     }
-    
-    
-    /**
-     * Used when "the model" sends notifyObservers(arg1).
-     */
-	@Override //Movement (or something)
-	public void update(Observable who, Object what) {
-		
-		//If it was a vector: move there.
-		if (what instanceof Vector2D) {
-			final Vector2D position = new Vector2D((Vector2D) what);
-			SwingUtilities.invokeLater(new Runnable() {
-			    public void run() { setPosition(position); }	    
-			});
-		}
-		
-		// if (died) parent.removeItem(this);
-		if (what instanceof String) {
-			if (((String)what).equals("Died"))
-				//Die!
-				parent.removeMe(this);
-		}
-				
-		//System.out.println("Update i GameView: "+what);
-		// if (moved) move(new_x, new_y);
-		// if (died) parent.removeItem(this);
-		// if (resized) resize(new_size);
-	}
 	
 	
 	/**
 	 * Moves the figure to a new position
-	 * @param position
+	 * @param position	the new position
 	 */
-	private void setPosition (Vector2D position) {
-		this.x = position.getX();
-		this.y = position.getY();
-    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
+	public void setPosition (Vector2D position) {
+		super.setPosition(position);
+		this.setBounds((int)(position.x-size/2-2*extra), (int)(position.y-size/2-2*extra), (int)size+2*extra, (int)size+2*extra);
 		parent.repaint();
 	}
 	
@@ -125,9 +80,9 @@ implements Observer
      * Set a new size for the figure
      * @param new_size	The new size
      */
-    private void resize (double new_size) {
-    	size = new_size;
-    	this.setBounds((int)(x-size/2-2*extra), (int)(y-size/2-2*extra), (int)size+extra, (int)size+extra);
+    public void resize (double new_size) {
+    	super.resize(new_size);
+    	this.setBounds((int)(position.x-size/2-2*extra), (int)(position.y-size/2-2*extra), (int)size+extra, (int)size+extra);
     	parent.repaint();
 	}
     

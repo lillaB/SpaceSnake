@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 /**
  * Internal class making commands sent through events more readable and makes sure that they are unique.
  * @author Gustav
+ * @version 2016-03-05
  */
 
 
@@ -21,6 +22,10 @@ extends ActionEvent
 	 */
 	public static String
 	ESC_PRESSED = "ESC pressed",
+	UP_PRESSED = "Up pressed",
+	DOWN_PRESSED = "Down pressed",
+	RIGHT_PRESSED = "Right pressed",
+	LEFT_PRESSED = "Left pressed",
 	WINDOW_CLOSED = "Window closed",
 	RETURN_TO_GAME = "Return to game",
 	SAVE_GAME = "Save game",

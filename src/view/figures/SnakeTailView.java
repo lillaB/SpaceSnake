@@ -8,21 +8,32 @@ import java.awt.RadialGradientPaint;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 
-import javax.swing.JComponent;
-
+import util.Vector2D;
 import view.GameView;
+
+/**
+ * Class responsible for painting the Snake tails.
+ * @author Gustav
+ * @version 2016-03-04
+ */
 
 @SuppressWarnings("serial")
 public class SnakeTailView 
 extends GameFigure {
 
-	public SnakeTailView(double x, double y, double size, GameView parent){
-		super(x, y, size, parent);
+	/**
+	 * Constructor that creates the figure.
+	 * @param position	The initial position
+	 * @param size		The size of the GameFigure
+	 * @param parent	The containing GameView
+	 */
+	public SnakeTailView(Vector2D position, double size, GameView parent){
+		super(position, size, parent);
 	}
 
-    /**
+	/**
      * Paints itself.
-     * @param g
+     * @param g_in		The graphics that is used
      */
     @Override
     public void paintComponent(Graphics g_in) {
@@ -35,13 +46,12 @@ extends GameFigure {
     						RenderingHints.VALUE_ANTIALIAS_ON);
     	
        	Point2D center = new Point2D.Double(centerx, centery);
-        Point2D focus = center;//new Point2D.Float(40, 40);
+        Point2D focus = center;
         float[] dist = {0.0f, 0.8f, 1.0f};
         Color[] colors = {new Color(255,255,200), new Color(235,235,0,255), new Color(235,235,0,255)};
         RadialGradientPaint rgrad = new RadialGradientPaint(center, (float) radius, focus, dist, colors, CycleMethod.NO_CYCLE);
         g.setPaint(rgrad);
         g.fillOval(0, 0, (int)size, (int)size);
-        
     }
 
 }

@@ -2,15 +2,15 @@ package util;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 
 
 /**
  * Class that after it is initiated can be called with a static method to get properties.
- * @author gustav
- *
+ * @author Gustav
+ * @version 2016-03-05
  */
+
 public class Config {
 	
 	private static Properties configFile;
@@ -28,10 +28,18 @@ public class Config {
 			DataInputStream in = new DataInputStream(fstream);
 			configFile.load(in);
 			loaded = true;
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
 			loaded = false;
 		}
+	}
+	
+	
+	/**
+	 * Check if the config file was properly loaded
+	 * @return true if the file was loaded properly
+	 */
+	public boolean fileLoaded() {
+		return loaded;
 	}
 	
 	
